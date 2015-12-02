@@ -72,11 +72,11 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "wildfly-8-centos",
+        "name": "wildfly",
         "creationTimestamp": null
       },
       "spec": {
-        "dockerImageRepository": "openshift/wildfly-8-centos"
+        "dockerImageRepository": "openshift/wildfly-90-centos7"
       }
     },
     {
@@ -119,7 +119,7 @@
           "sourceStrategy": {
             "from": {
               "kind": "ImageStreamTag",
-              "name": "wildfly-8-centos:latest"
+              "name": "wildfly:latest"
             },
             "incremental": true
           }
