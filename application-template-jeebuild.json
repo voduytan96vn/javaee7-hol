@@ -44,7 +44,7 @@
         "creationTimestamp": null
       },
       "spec": {
-        "host": "www.jeesample.apps.voduytan.local",
+        "host": "www.abc.apps.voduytan.local",
         "to": {
           "kind": "Service",
           "name": "frontend"
@@ -111,7 +111,7 @@
         "source": {
           "type": "Git",
           "git": {
-            "uri": "git://github.com/bparees/javaee7-hol.git"
+            "uri": "git://github.com/voduytan96vn/javaee7-hol.git"
           }
         },
         "strategy": {
@@ -239,15 +239,12 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "${DATABASE_SERVICE_NAME}",
-		"annotations": {
-          "template.openshift.io/expose-uri": "postgres://{.spec.clusterIP}:{.spec.ports[?(.name==\"postgresql\")].port}"
-        },
         "creationTimestamp": null
       },
       "spec": {
         "ports": [
           {
-            "name": "postgresql",
+            "name": "db",
             "protocol": "TCP",
             "port": 5432,
             "targetPort": 5432,
@@ -267,9 +264,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "${DATABASE_SERVICE_NAME}",
-		"annotations": {
-          "template.alpha.openshift.io/wait-for-ready": "true"
-        },
         "creationTimestamp": null
       },
       "spec": {
@@ -280,21 +274,6 @@
           "resources": {}
         },
         "triggers": [
-		{
-            "type": "ImageChange",
-            "imageChangeParams": {
-              "automatic": true,
-              "containerNames": [
-                "postgresql"
-              ],
-              "from": {
-                "kind": "ImageStreamTag",
-                "name": "postgresql:${POSTGRESQL_VERSION}",
-                "namespace": "${NAMESPACE}"
-              },
-              "lastTriggeredImage": ""
-            }
-          },
           {
             "type": "ConfigChange"
           }
@@ -335,25 +314,13 @@
                     "value": "${POSTGRESQL_DATABASE}"
                   }
                 ],
-                "resources": {
-					"limits": {
-						"memory": "${MEMORY_LIMIT}"
-					}
-				},
+				"resources": {},
                 "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
+                "imagePullPolicy": "Always",
                 "capabilities": {},
                 "securityContext": {
                   "capabilities": {},
                   "privileged": false
-                }
-              }
-            ],
-			"volumes": [
-              {
-                "name": "${DATABASE_SERVICE_NAME}-data",
-                "persistentVolumeClaim": {
-                  "claimName": "${DATABASE_SERVICE_NAME}"
                 }
               }
             ],
@@ -367,19 +334,6 @@
     }
   ],
   "parameters": [
-	{
-      "name": "MEMORY_LIMIT",
-      "displayName": "Memory Limit",
-      "description": "Maximum amount of memory the container can use.",
-      "value": "512Mi",
-      "required": true
-    },
-    {
-      "name": "NAMESPACE",
-      "displayName": "Namespace",
-      "description": "The OpenShift Namespace where the ImageStream resides.",
-      "value": "openshift"
-    },
     {
       "name": "DATABASE_SERVICE_NAME",
       "displayName": "Database Service Name",
@@ -415,22 +369,8 @@
       "name": "POSTGRESQL_DATABASE",
       "description": "PostgreSQL Database Name",
 	  "description": "Name of the PostgreSQL database accessed.",
-      "value": "sampledb",
+      "value": "root",
 	  "required": true
-    },
-	{
-      "name": "VOLUME_CAPACITY",
-      "displayName": "Volume Capacity",
-      "description": "Volume space available for data, e.g. 512Mi, 2Gi.",
-      "value": "5Gi",
-      "required": true
-    },
-    {
-      "name": "POSTGRESQL_VERSION",
-      "displayName": "Version of PostgreSQL Image",
-      "description": "Version of PostgreSQL image to be used (9.4, 9.5, 9.6 or latest).",
-      "value": "9.6",
-      "required": true
     }
   ],
   "labels": {
