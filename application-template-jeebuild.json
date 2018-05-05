@@ -1,13 +1,13 @@
 {
   "kind": "Template",
-  "apiVersion": "v1beta3",
+  "apiVersion": "v1",
   "metadata": {
     "name": "jee-sample",
     "creationTimestamp": null,
     "annotations": {
       "description": "Builds and deploys a sample JEE app",
       "iconClass": "icon-jboss",
-      "tags": "instant-app,java,mysql"
+      "tags": "instant-app,java,postgresql"
     }
   },
   "objects": [
@@ -44,7 +44,7 @@
         "creationTimestamp": null
       },
       "spec": {
-        "host": "www.example.com",
+        "host": "www.jeesample.apps.voduytan.local",
         "to": {
           "kind": "Service",
           "name": "frontend"
@@ -204,16 +204,16 @@
                     "value": "${ADMIN_PASSWORD}"
                   },
                   {
-                    "name": "MYSQL_USER",
-                    "value": "${MYSQL_USER}"
+                    "name": "POSTGRESQL_USER",
+                    "value": "${POSTGRESQL_USER}"
                   },
                   {
-                    "name": "MYSQL_PASSWORD",
-                    "value": "${MYSQL_PASSWORD}"
+                    "name": "POSTGRESQL_PASSWORD",
+                    "value": "${POSTGRESQL_PASSWORD}"
                   },
                   {
-                    "name": "MYSQL_DATABASE",
-                    "value": "${MYSQL_DATABASE}"
+                    "name": "POSTGRESQL_DATABASE",
+                    "value": "${POSTGRESQL_DATABASE}"
                   }
                 ],
                 "resources": {},
@@ -238,21 +238,24 @@
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mysql",
+        "name": "${DATABASE_SERVICE_NAME}",
+		"annotations": {
+          "template.openshift.io/expose-uri": "postgres://{.spec.clusterIP}:{.spec.ports[?(.name==\"postgresql\")].port}"
+        },
         "creationTimestamp": null
       },
       "spec": {
         "ports": [
           {
-            "name": "db",
+            "name": "postgresql",
             "protocol": "TCP",
-            "port": 3306,
-            "targetPort": 3306,
+            "port": 5432,
+            "targetPort": 5432,
             "nodePort": 0
           }
         ],
         "selector": {
-          "name": "mysql"
+          "name": "${DATABASE_SERVICE_NAME}"
         },
         "portalIP": "",
         "type": "ClusterIP",
@@ -263,7 +266,10 @@
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mysql",
+        "name": "${DATABASE_SERVICE_NAME}",
+		"annotations": {
+          "template.alpha.openshift.io/wait-for-ready": "true"
+        },
         "creationTimestamp": null
       },
       "spec": {
@@ -274,53 +280,80 @@
           "resources": {}
         },
         "triggers": [
+		{
+            "type": "ImageChange",
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "postgresql"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "postgresql:${POSTGRESQL_VERSION}",
+                "namespace": "${NAMESPACE}"
+              },
+              "lastTriggeredImage": ""
+            }
+          },
           {
             "type": "ConfigChange"
           }
         ],
         "replicas": 1,
         "selector": {
-          "name": "mysql"
+          "name": "${DATABASE_SERVICE_NAME}"
         },
         "template": {
           "metadata": {
             "creationTimestamp": null,
             "labels": {
-              "name": "mysql"
+              "name": "${DATABASE_SERVICE_NAME}"
             }
           },
           "spec": {
             "containers": [
               {
-                "name": "mysql",
-                "image": "openshift/mysql-55-centos7:latest",
+                "name": "postgresql",
+                "image": "openshift/postgresql-94-centos7:latest",
                 "ports": [
                   {
-                    "containerPort": 3306,
+                    "containerPort": 5432,
                     "protocol": "TCP"
                   }
                 ],
                 "env": [
                   {
-                    "name": "MYSQL_USER",
-                    "value": "${MYSQL_USER}"
+                    "name": "POSTGRESQL_USER",
+                    "value": "${POSTGRESQL_USER}"
                   },
                   {
-                    "name": "MYSQL_PASSWORD",
-                    "value": "${MYSQL_PASSWORD}"
+                    "name": "POSTGRESQL_PASSWORD",
+                    "value": "${POSTGRESQL_PASSWORD}"
                   },
                   {
-                    "name": "MYSQL_DATABASE",
-                    "value": "${MYSQL_DATABASE}"
+                    "name": "POSTGRESQL_DATABASE",
+                    "value": "${POSTGRESQL_DATABASE}"
                   }
                 ],
-                "resources": {},
+                "resources": {
+					"limits": {
+						"memory": "${MEMORY_LIMIT}"
+					}
+				},
                 "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "Always",
+                "imagePullPolicy": "IfNotPresent",
                 "capabilities": {},
                 "securityContext": {
                   "capabilities": {},
                   "privileged": false
+                }
+              }
+            ],
+			"volumes": [
+              {
+                "name": "${DATABASE_SERVICE_NAME}-data",
+                "persistentVolumeClaim": {
+                  "claimName": "${DATABASE_SERVICE_NAME}"
                 }
               }
             ],
@@ -334,6 +367,26 @@
     }
   ],
   "parameters": [
+	{
+      "name": "MEMORY_LIMIT",
+      "displayName": "Memory Limit",
+      "description": "Maximum amount of memory the container can use.",
+      "value": "512Mi",
+      "required": true
+    },
+    {
+      "name": "NAMESPACE",
+      "displayName": "Namespace",
+      "description": "The OpenShift Namespace where the ImageStream resides.",
+      "value": "openshift"
+    },
+    {
+      "name": "DATABASE_SERVICE_NAME",
+      "displayName": "Database Service Name",
+      "description": "The name of the OpenShift Service exposed for the database.",
+      "value": "postgresql",
+      "required": true
+    },
     {
       "name": "ADMIN_USERNAME",
       "description": "administrator username",
@@ -347,21 +400,37 @@
       "from": "[a-zA-Z0-9]{8}"
     },
     {
-      "name": "MYSQL_USER",
+      "name": "POSTGRESQL_USER",
       "description": "database username",
       "generate": "expression",
       "from": "user[A-Z0-9]{3}"
     },
     {
-      "name": "MYSQL_PASSWORD",
+      "name": "POSTGRESQL_PASSWORD",
       "description": "database password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{8}"
     },
     {
-      "name": "MYSQL_DATABASE",
-      "description": "database name",
-      "value": "root"
+      "name": "POSTGRESQL_DATABASE",
+      "description": "PostgreSQL Database Name",
+	  "description": "Name of the PostgreSQL database accessed.",
+      "value": "sampledb",
+	  "required": true
+    },
+	{
+      "name": "VOLUME_CAPACITY",
+      "displayName": "Volume Capacity",
+      "description": "Volume space available for data, e.g. 512Mi, 2Gi.",
+      "value": "5Gi",
+      "required": true
+    },
+    {
+      "name": "POSTGRESQL_VERSION",
+      "displayName": "Version of PostgreSQL Image",
+      "description": "Version of PostgreSQL image to be used (9.4, 9.5, 9.6 or latest).",
+      "value": "9.6",
+      "required": true
     }
   ],
   "labels": {
