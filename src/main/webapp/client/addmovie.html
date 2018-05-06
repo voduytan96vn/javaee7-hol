@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8">
+  <html>
+
+<h:body>
+
+  <ui:composition template="./../WEB-INF/template.html">
+
+    <ui:define name="content">
+      <h1>Add a New Movie</h1>
+      <h:form>
+        <h:table cellpadding="5" cellspacing="5">
+          <tr>
+            <th align="left">Movie Id:</th>
+            <td><h:inputText value="#{movieBackingBean.movieId}" /></td>
+          </tr>
+          <tr>
+            <th align="left">Movie Name:</th>
+            <td><h:inputText value="#{movieBackingBean.movieName}" /></td>
+          </tr>
+          <tr>
+            <th align="left">Movie Actors:</th>
+            <td><h:inputText value="#{movieBackingBean.actors}" /></td>
+          </tr>
+
+        </h:table>
+        <h:commandButton value="Add" action="movies" actionListener="#{movieClientBean.addMovie()}" />
+      </h:form>
+    </ui:define>
+
+  </ui:composition>
+
+</h:body>
+  </html>
+</f:view>

@@ -1,16 +1,18 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html">
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8">
+  <html>
 
-<body>
+<h:body>
 
-  <ui:composition template="./../WEB-INF/template.xhtml">
+  <ui:composition template="./../WEB-INF/template.html">
 
     <ui:define name="content">
       <h1>Movie Details</h1>
       <h:form>
-        <table cellpadding="5" cellspacing="5">
+        <h:table cellpadding="5" cellspacing="5">
           <tr>
             <th align="left">Movie Id:</th>
             <td>#{movieClientBean.movie.id}</td>
@@ -24,12 +26,13 @@
             <td>#{movieClientBean.movie.actors}</td>
           </tr>
 
-        </table>
+        </h:table>
         <h:commandButton value="Back" action="movies" />
       </h:form>
     </ui:define>
 
   </ui:composition>
 
-</body>
-</html>
+</h:body>
+  </html>
+</f:view>
