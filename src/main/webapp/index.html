@@ -1,99 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE html>
-<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8">
-  <html>
-<h:head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-  <meta content="width=device-width, maximum-scale=1.0, user-scalable=2.0" name="viewport" />
-  <link href="#{request.contextPath}/styles/html5reset.css" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/default.css" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/cssLayout.css" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/skyapp.css" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/font-awesome.css" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/icons.css" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/jquery-ui.css?v=#{app.version}" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/grid.css?v=#{app.version}" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/control.css?v=#{app.version}" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/dimension.css?v=#{app.version}" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/table.css?v=#{app.version}" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/table2.css?v=#{app.version}" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/datetimepicker.css?v=#{app.version}" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/timepicker.css?v=#{app.version}" rel="stylesheet" type="text/css" />
-  <link href="#{request.contextPath}/styles/periodpicker.css?v=#{app.version}" rel="stylesheet" type="text/css" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-  <script src="#{request.contextPath}/scripts/jquery.js?v=#{app.version}" type="text/javascript"></script>
-  <script src="#{request.contextPath}/scripts/jquery-ui.js?v=#{app.version}" type="text/javascript"></script>
-  <title>Java Application Demo</title>
-</h:head>
-<h:body>
-  <h:panelGroup id="header" styleClass="header">
-    <div class="logo" data-init="#{screenBean.title}">
-      <h:graphicImage url="./images/logo.png"></h:graphicImage>
-    </div>
+<body>
 
-    <div class="navtop">
-      <div class="nav-item icon-lab-sample">
-        <span>LẤY MẪU</span>
-      </div>
-      <div class="nav-item icon-lab-test active">
-        <span>XÉT NGHIỆM</span>
-      </div>
-      <div class="nav-item icon-lab-testing">
-        <span>ĐANG XN</span>
-      </div>
-      <div class="nav-item icon-lab-complete">
-        <span>ĐỦ KẾT QUẢ</span>
-      </div>
-      <div class="nav-item icon-lab-valid">
-        <span>ĐÃ DUYỆT</span>
-      </div>
-      <div class="nav-item icon-lab-report">
-        <span>BÁO CÁO</span>
-      </div>
-    </div>
+  <ui:composition template="./WEB-INF/template.xhtml">
 
-    <div class="login-info">
-      <div class="user-image">
-        <img src="./images/user.svg" />
-      </div>
-      <div class="user-info">
-        <div class="user-department">
-          <h:outputText value="department name"></h:outputText>
-        </div>
-        <div class="user-account">
-          <h:outputText value="account"></h:outputText>
-        </div>
-        <div class="user-name">
-          <h:outputText value="userName"></h:outputText>
-        </div>
-        <div class="department-select"></div>
-      </div>
-    </div>
-    <h:panelGroup layout="block" id="pgOption" styleClass="app-config">
-      <span>THIẾT LẬP</span>
-    </h:panelGroup>
-    <h:panelGroup layout="block" styleClass="app-logout">
-      <span>THOÁT</span>
-    </h:panelGroup>
-    <h:form id="formLogout" prependId="false" styleClass="hide">
-      <h:commandButton id="cbLogout" styleClass="btn" value="Logout">
-      </h:commandButton>
-    </h:form>
-  </h:panelGroup>
+    <ui:define name="content">
+                Showing #{movieFacadeREST.countREST()} movies in #{theaterFacadeREST.countREST()} theaters!
+            </ui:define>
 
-  <h:panelGroup id="pgWrapper">
-    <ui:include src="/views/emr/emr.html"></ui:include>
-    
-    Showing #{movieFacadeREST.countREST()} movies in #{theaterFacadeREST.countREST()} theaters!
-  </h:panelGroup>
+  </ui:composition>
 
-  <footer>
-    <h6>Footer</h6>
-  </footer>
-</h:body>
-  </html>
-</f:view>
+</body>
+</html>
