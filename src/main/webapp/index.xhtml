@@ -15,29 +15,18 @@
   <link href="#{request.contextPath}/styles/skyapp.css" rel="stylesheet" type="text/css" />
   <link href="#{request.contextPath}/styles/font-awesome.css" rel="stylesheet" type="text/css" />
   <link href="#{request.contextPath}/styles/icons.css" rel="stylesheet" type="text/css" />
-  <link href="${facesContext.externalContext.requestContextPath}/styles/jquery-ui.css?v=#{app.version}" rel="stylesheet"
-    type="text/css" />
-  <link href="${facesContext.externalContext.requestContextPath}/styles/grid.css?v=#{app.version}" rel="stylesheet"
-    type="text/css" />
-  <link href="${facesContext.externalContext.requestContextPath}/styles/control.css?v=#{app.version}" rel="stylesheet"
-    type="text/css" />
-  <link href="${facesContext.externalContext.requestContextPath}/styles/dimension.css?v=#{app.version}" rel="stylesheet"
-    type="text/css" />
-  <link href="${facesContext.externalContext.requestContextPath}/styles/table.css?v=#{app.version}" rel="stylesheet"
-    type="text/css" />
-  <link href="${facesContext.externalContext.requestContextPath}/styles/table2.css?v=#{app.version}" rel="stylesheet"
-    type="text/css" />
-  <link href="${facesContext.externalContext.requestContextPath}/styles/datetimepicker.css?v=#{app.version}"
-    rel="stylesheet" type="text/css" />
-  <link href="${facesContext.externalContext.requestContextPath}/styles/timepicker.css?v=#{app.version}"
-    rel="stylesheet" type="text/css" />
-  <link href="${facesContext.externalContext.requestContextPath}/styles/periodpicker.css?v=#{app.version}"
-    rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/jquery-ui.css?v=#{app.version}" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/grid.css?v=#{app.version}" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/control.css?v=#{app.version}" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/dimension.css?v=#{app.version}" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/table.css?v=#{app.version}" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/table2.css?v=#{app.version}" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/datetimepicker.css?v=#{app.version}" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/timepicker.css?v=#{app.version}" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/periodpicker.css?v=#{app.version}" rel="stylesheet" type="text/css" />
 
-  <script src="${facesContext.externalContext.requestContextPath}/scripts/jquery.js?v=#{app.version}"
-    type="text/javascript"></script>
-  <script src="${facesContext.externalContext.requestContextPath}/scripts/jquery-ui.js?v=#{app.version}"
-    type="text/javascript"></script>
+  <script src="#{request.contextPath}/scripts/jquery.js?v=#{app.version}" type="text/javascript"></script>
+  <script src="#{request.contextPath}/scripts/jquery-ui.js?v=#{app.version}" type="text/javascript"></script>
   <title>Java Application Demo</title>
 </h:head>
 <h:body>
@@ -95,170 +84,10 @@
       </h:commandButton>
     </h:form>
   </h:panelGroup>
-  <div class="notification">
-    <div class="notibar"></div>
-  </div>
+
   <h:panelGroup id="pgWrapper">
-    <div class="side-left">
-      <h:form>
-        <h:commandLink action="booking">Book a movie</h:commandLink>
-        <p />
-        <h:outputLink value="${facesContext.externalContext.requestContextPath}/faces/chat/chatroom.xhtml">Chat Room</h:outputLink>
-        <p />
-        <h:outputLink value="${facesContext.externalContext.requestContextPath}/faces/client/movies.xhtml">Movies</h:outputLink>
-        <p />
-        <h:outputLink value="${facesContext.externalContext.requestContextPath}/faces/batch/sales.xhtml">Sales</h:outputLink>
-        <p />
-        <h:outputLink value="${facesContext.externalContext.requestContextPath}/faces/points/points.xhtml">Points</h:outputLink>
-      </h:form>
-      <div class="tab-bar list">
-        <div class="tab-item active">A</div>
-        <div class="tab-item">B</div>
-        <div class="tab-item">C</div>
-        <div class="tab-item">All</div>
-      </div>
-
-      <div class="search-bar">
-        <h:inputText styleClass="search-quick"></h:inputText>
-        <div class="search-advance"></div>
-        <h:commandButton styleClass="btn-search" value=" ">C</h:commandButton>
-      </div>
-
-      <div class="work-list">
-        <div class="work-item">
-          <div class="item-info">
-            <div>
-              <span class="item-no">003</span> <span class="item-code">88N000008</span> <span class="item-date">2014/09/19
-                18:20</span>
-            </div>
-            <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-            <div class="item-service">Công thức máu</div>
-            <div>
-              <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-            </div>
-          </div>
-        </div>
-        <div class="work-item active">
-          <div>
-            <span class="item-code">88N000008</span> <span class="item-date">2014/09/19 18:20</span>
-          </div>
-          <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-          <div class="item-service">Nước tiểu</div>
-          <div>
-            <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-          </div>
-        </div>
-        <div class="work-item">
-          <div>
-            <span class="item-code">88N000008</span> <span class="item-date">2014/09/19 18:20</span>
-          </div>
-          <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-          <div class="item-service">Đường máu</div>
-          <div>
-            <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-          </div>
-        </div>
-        <div class="work-item">
-          <div>
-            <span class="item-code">88N000008</span> <span class="item-date">2014/09/19 18:20</span>
-          </div>
-          <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-          <div class="item-service">Vi khuẩn</div>
-          <div>
-            <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-          </div>
-        </div>
-        <div class="work-item">
-          <div>
-            <span class="item-code">88N000008</span> <span class="item-date">2014/09/19 18:20</span>
-          </div>
-          <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-          <div class="item-service">Độc tố</div>
-          <div>
-            <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-          </div>
-        </div>
-        <div class="work-item">
-          <div>
-            <span class="item-code">88N000008</span> <span class="item-date">2014/09/19 18:20</span>
-          </div>
-          <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-          <div class="item-service">Hg</div>
-          <div>
-            <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-          </div>
-        </div>
-        <div class="work-item">
-          <div>
-            <span class="item-code">88N000008</span> <span class="item-date">2014/09/19 18:20</span>
-          </div>
-          <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-          <div class="item-service">HgAB</div>
-          <div>
-            <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-          </div>
-        </div>
-        <div class="work-item">
-          <div>
-            <span class="item-code">88N000008</span> <span class="item-date">2014/09/19 18:20</span>
-          </div>
-          <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-          <div class="item-service">Tiểu cầu</div>
-          <div>
-            <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-          </div>
-        </div>
-        <div class="work-item">
-          <div>
-            <span class="item-code">88N000008</span> <span class="item-date">2014/09/19 18:20</span>
-          </div>
-          <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-          <div class="item-service">Mỡ máu</div>
-          <div>
-            <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-          </div>
-        </div>
-        <div class="work-item">
-          <div>
-            <span class="item-code">88N000008</span> <span class="item-date">2014/09/19 18:20</span>
-          </div>
-          <div class="item-name">NGUYỄN THÀNH CÔNG</div>
-          <div class="item-service">Gan nhiễm mở</div>
-          <div>
-            <span class="item-status">Đang chờ</span> <span class="item-priority">Bình thường</span>
-          </div>
-        </div>
-      </div>
-      <div class="add-new-item"></div>
-    </div>
-    <div class="content">
-      <div class="content-header">
-        Header content
-        <div class="content-top-action">Site</div>
-      </div>
-      <div class="form-content">
-        <form id="formMain">
-          <div class="main-content">Site</div>
-
-          <div class="action">
-            <div class="action-message">
-              <h:outputText value="Lưu thành công"></h:outputText>
-            </div>
-            <div class="action-bar">
-              <h:commandButton styleClass="btn btn-primary" value="Lưu"></h:commandButton>
-              <h:commandButton styleClass="btn btn-primary" value="Lưu va In"></h:commandButton>
-              <h:commandButton styleClass="btn" value="In"></h:commandButton>
-              <h:commandButton styleClass="btn" value="Hủy"></h:commandButton>
-              <h:commandButton styleClass="btn" value="Xóa"></h:commandButton>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div class="side-right"></div>
-
-
-    </div>
+    <ui:include src="./views/user.html"></ui:include>
+    
     Showing #{movieFacadeREST.countREST()} movies in #{theaterFacadeREST.countREST()} theaters!
   </h:panelGroup>
 
