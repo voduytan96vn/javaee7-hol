@@ -293,7 +293,7 @@
             "containers": [
               {
                 "name": "postgresql",
-                "image": "openshift/postgresql-94-centos7:latest",
+                "image": "centos/postgresql-94-centos7:latest",
                 "ports": [
                   {
                     "containerPort": 5432,
