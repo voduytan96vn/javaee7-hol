@@ -68,106 +68,16 @@
                   </h:panelGroup>
                   <h:panelGroup styleClass="tab-right-link" layout="block">
                     <h:commandButton id="cbAddScreen" styleClass="btn-link" value="Tạo mới">
-                      <f:ajax execute="@form" render="@form -formEdit" />
+
                     </h:commandButton>
                     <h:commandButton styleClass="btn-link" value="Xoá"
                       onclick="return confirm('Bạn thật sự muốn xoá?');">
-                      <f:ajax execute="@form" render="@form" />
+
                     </h:commandButton>
                   </h:panelGroup>
                 </div>
                 <h:panelGroup id="pgItems" styleClass="items tab-item-detail active tabItems">
-                  <div class="table">
-                    <h:dataTable id="tableLabelItems" styleClass="table w100" headerClass="table-header" value=""
-                      var="row" cellspacing="0" cellpadding="0" columnClasses="pxw50 header">
-                      <h:column>
-                        <f:facet name="header">
-                          <h:selectBooleanCheckbox styleClass="select-all-row" value="11"></h:selectBooleanCheckbox>
-                          <h:outputText value="STT" />
-                        </f:facet>
-                        <div class="group-select-index">
-                          <h:selectBooleanCheckbox styleClass="select-row" value="true"></h:selectBooleanCheckbox>
-                          <div class="index">
-                            <h:outputText value="11" />
-                          </div>
-                        </div>
-                      </h:column>
-
-                      <h:column>
-                        <f:facet name="header">
-                          <div>
-                            <h:outputText value="ID" />
-                          </div>
-                        </f:facet>
-                        <h:outputText value="11"></h:outputText>
-                      </h:column>
-
-                      <h:column>
-                        <f:facet name="header">
-                          <div>
-                            <h:outputText value="Module" />
-                          </div>
-                        </f:facet>
-                        <h:outputText value="11"></h:outputText>
-                      </h:column>
-
-                      <h:column>
-                        <f:facet name="header">
-                          <div>
-                            <h:outputText value="Tên" />
-                          </div>
-                        </f:facet>
-                        <h:outputText value="11"></h:outputText>
-                      </h:column>
-
-                      <h:column>
-                        <f:facet name="header">
-                          <div>
-                            <h:outputText value="Khoá ngôn ngữ" />
-                          </div>
-                        </f:facet>
-                        <h:outputText value="11"></h:outputText>
-                      </h:column>
-
-                      <h:column>
-                        <f:facet name="header">
-                          <div>
-                            <h:outputText value="URl Layout" />
-                          </div>
-                        </f:facet>
-                        <h:outputText value="11"></h:outputText>
-                      </h:column>
-
-                      <h:column>
-                        <f:facet name="header">
-                          <div>
-                            <h:outputText value="Mẫu report" />
-                          </div>
-                        </f:facet>
-                        <h:outputText value="11"></h:outputText>
-                      </h:column>
-
-                      <h:column>
-                        <f:facet name="header">
-                          <div>
-                            <h:outputText value="Thao tác" />
-                          </div>
-                        </f:facet>
-                        <div class="text-center">
-                          <div class="form-grid">
-                            <div class="form-group btn-link" onclick="editScreen(this, '#{row.id}');"
-                              title="Sửa màn hình">
-                              <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </div>
-                            <div class="form-group btn-link" style="color: red;" onclick="delScreen(#{row.index});"
-                              title="Xoá màn hình">
-                              <i class="fa fa-remove" aria-hidden="true"></i>
-                            </div>
-                          </div>
-                        </div>
-                      </h:column>
-                    </h:dataTable>
-                  </div>
+                  <div class="table"></div>
                 </h:panelGroup>
               </div>
             </div>
