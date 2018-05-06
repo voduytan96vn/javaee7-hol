@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8">
+  <div class="wrapper">
+    <h:panelGroup layout="block">
+      <div class="content">
+        <div class="content-header">
+          <div class="left-showhide" onclick="leftShowHide(this);"></div>
+          <h:outputText styleClass="header-title" value="Danh sách màn hình"></h:outputText>
+          <div class="right-showhide" onclick="rightShowHide(this);"></div>
+        </div>
+        <div class="form-content">
+          <h:form id="formMain" prependId="false">
+            <div class="main-content">
+              <div class="wrapper-content">
+                <div>
+                  <div class="form-grid c2">
+                    <div class="form-group w50">
+                      <div class="form-grid c2">
+                        <div class="form-group w50">
+                          <div class="form-control l120">
+                            <div class="label">Mã màn hình</div>
+                            <div class="control">
+                              <h:inputText id="itScreenId" value="11"></h:inputText>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group w50">
+                          <div class="form-control l80">
+                            <div class="label">Module</div>
+                            <div class="control">
+                              <h:inputText id="itModule" value="11"></h:inputText>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-control l120">
+                        <div class="label">Tên màn hình</div>
+                        <div class="control">
+                          <h:inputText id="itName" value="11"></h:inputText>
+                        </div>
+                      </div>
+                      <div class="form-control l120">
+                        <div class="label">URL Layout</div>
+                        <div class="control">
+                          <h:inputText id="itLayout" value="11"></h:inputText>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group w50">
+                      <h:commandButton id="cbSearchAdvance" style="width: 80px; margin-left: 50px;"
+                        styleClass="btn btn-primary" value="Tìm">
+
+                      </h:commandButton>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-header margin-top">
+                  <h:panelGroup styleClass="tab-bar" layout="block">
+                    <div id="dataAll" class="tabData dataAll tab-item" onclick="tabDataAll(this, 'cbSearchAdvance')"
+                      title="Tất cả">Tất cả</div>
+                    <div id="dataActive" class="tabData dataActive tab-item"
+                      onclick="tabDataActive(this, 'cbSearchAdvance')" title="Active">Active</div>
+                    <div id="dataDisabled" class="tabData dataDisabled tab-item"
+                      onclick="tabDataDisabled(this, 'cbSearchAdvance')" title="Disabled">Disabled</div>
+                  </h:panelGroup>
+                  <h:panelGroup styleClass="tab-right-link" layout="block">
+                    <h:commandButton id="cbAddScreen" styleClass="btn-link" value="Tạo mới">
+                      <f:ajax execute="@form" render="@form -formEdit" />
+                    </h:commandButton>
+                    <h:commandButton styleClass="btn-link" value="Xoá"
+                      onclick="return confirm('Bạn thật sự muốn xoá?');">
+                      <f:ajax execute="@form" render="@form" />
+                    </h:commandButton>
+                  </h:panelGroup>
+                </div>
+                <h:panelGroup id="pgItems" styleClass="items tab-item-detail active tabItems">
+                  <div class="table">
+                    <h:dataTable id="tableLabelItems" styleClass="table w100" headerClass="table-header" value=""
+                      var="row" cellspacing="0" cellpadding="0" columnClasses="pxw50 header">
+                      <h:column>
+                        <f:facet name="header">
+                          <h:selectBooleanCheckbox styleClass="select-all-row" value="11"></h:selectBooleanCheckbox>
+                          <h:outputText value="STT" />
+                        </f:facet>
+                        <div class="group-select-index">
+                          <h:selectBooleanCheckbox styleClass="select-row" value="true"></h:selectBooleanCheckbox>
+                          <div class="index">
+                            <h:outputText value="11" />
+                          </div>
+                        </div>
+                      </h:column>
+
+                      <h:column>
+                        <f:facet name="header">
+                          <div>
+                            <h:outputText value="ID" />
+                          </div>
+                        </f:facet>
+                        <h:outputText value="11"></h:outputText>
+                      </h:column>
+
+                      <h:column>
+                        <f:facet name="header">
+                          <div>
+                            <h:outputText value="Module" />
+                          </div>
+                        </f:facet>
+                        <h:outputText value="11"></h:outputText>
+                      </h:column>
+
+                      <h:column>
+                        <f:facet name="header">
+                          <div>
+                            <h:outputText value="Tên" />
+                          </div>
+                        </f:facet>
+                        <h:outputText value="11"></h:outputText>
+                      </h:column>
+
+                      <h:column>
+                        <f:facet name="header">
+                          <div>
+                            <h:outputText value="Khoá ngôn ngữ" />
+                          </div>
+                        </f:facet>
+                        <h:outputText value="11"></h:outputText>
+                      </h:column>
+
+                      <h:column>
+                        <f:facet name="header">
+                          <div>
+                            <h:outputText value="URl Layout" />
+                          </div>
+                        </f:facet>
+                        <h:outputText value="11"></h:outputText>
+                      </h:column>
+
+                      <h:column>
+                        <f:facet name="header">
+                          <div>
+                            <h:outputText value="Mẫu report" />
+                          </div>
+                        </f:facet>
+                        <h:outputText value="11"></h:outputText>
+                      </h:column>
+
+                      <h:column>
+                        <f:facet name="header">
+                          <div>
+                            <h:outputText value="Thao tác" />
+                          </div>
+                        </f:facet>
+                        <div class="text-center">
+                          <div class="form-grid">
+                            <div class="form-group btn-link" onclick="editScreen(this, '#{row.id}');"
+                              title="Sửa màn hình">
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                            <div class="form-group btn-link" style="color: red;" onclick="delScreen(#{row.index});"
+                              title="Xoá màn hình">
+                              <i class="fa fa-remove" aria-hidden="true"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </h:column>
+                    </h:dataTable>
+                  </div>
+                </h:panelGroup>
+              </div>
+            </div>
+
+            <h:commandButton id="cbEditScreen" styleClass="hide" value="Edit Screen">
+            </h:commandButton>
+            <h:commandButton id="cbDelScreen" styleClass="hide" value="Remove Screen">
+            </h:commandButton>
+          </h:form>
+        </div>
+      </div>
+    </h:panelGroup>
+  </div>
+
+</f:view>
