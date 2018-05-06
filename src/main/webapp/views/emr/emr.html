@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8">
+  <div class="wrapper left-show right-hide">
+    <div class="side-left">
+      <h:form>
+        <h:commandLink action="booking">Book a movie</h:commandLink>
+        <p />
+        <h:outputLink value="${facesContext.externalContext.requestContextPath}/faces/chat/chatroom.xhtml">Chat Room</h:outputLink>
+        <p />
+        <h:outputLink value="${facesContext.externalContext.requestContextPath}/faces/client/movies.xhtml">Movies</h:outputLink>
+        <p />
+        <h:outputLink value="${facesContext.externalContext.requestContextPath}/faces/batch/sales.xhtml">Sales</h:outputLink>
+        <p />
+        <h:outputLink value="${facesContext.externalContext.requestContextPath}/faces/points/points.xhtml">Points</h:outputLink>
+      </h:form>
+    </div>
+
+    <ui:include src="/views/emr/edit.html"></ui:include>
+  </div>
+
+</f:view>

@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8"
+  xmlns:c="http://java.sun.com/jstl/core">
+  <div class="content">
+    <div class="content-header">
+      <div class="left-showhide"></div>
+      <h:outputText styleClass="header-title" value="Đơn thuốc"></h:outputText>
+      <div class="right-showhide"></div>
+    </div>
+    <div class="form-content">
+      <h:form id="formMain" prependId="false">
+        <div class="main-content">
+          <div class="wrapper-content">
+            <div>
+              <div class="margin-top">
+                <div class="form-grid c2">
+                  <div class="form-group w80">
+                    <div class="form-grid c2">
+                      <div class="form-group w35">
+                        <div class="form-control l120">
+                          <div class="label text-bold">Nơi chỉ định</div>
+                          <div class="control select"></div>
+                        </div>
+                        <div class="form-control l120">
+                          <div class="label text-bold">BS chỉ định</div>
+                          <div class="control">
+                            <h:inputText id="itPrescriptorName" value="emr311dto.prescription.prescriptorName">
+                            </h:inputText>
+                            <h:inputHidden id="itPrescriptorId" value="emr311dto.prescription.prescriptorId">
+                            </h:inputHidden>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group w45">
+                        <div class="form-control l120">
+                          <div class="label text-bold">Bệnh nhân</div>
+                          <div class="control">
+                            <h:inputText id="itPatientName" value="emr311dto.prescription.patientName"
+                              autocomplete="off">
+                            </h:inputText>
+                            <h:inputText id="itPatientId" styleClass="hide" value="emr311dto.prescription.patientId">
+                            </h:inputText>
+                          </div>
+                        </div>
+                        <div class="form-controll120">
+                          <div class="label text-bold">Chẩn đoán</div>
+                          <div class="control">
+                            <h:inputText value="emr311dto.prescription.diagnoses" autocomplete="off">
+                            </h:inputText>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h:panelGroup id="pgICD" styleClass="form-control l120" layout="block">
+                      <div class="label text-bold">ICD</div>
+                      <h:panelGroup layout="block">
+                        <div></div>
+                      </h:panelGroup>
+                    </h:panelGroup>
+
+                    <div class="form-grid c2">
+                      <div class="form-group w10">
+                        <div class="form-control l120">
+                          <div class="label text-bold">Số khoản</div>
+                          <div class="control">
+                            <div class="no-border text-bold">
+                              <h:outputText style="color: blue;" id="itNumOfType" value="emr311dto.numOfType"></h:outputText>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group w50">
+                        <div class="form-control l120">
+                          <div class="label text-bold">Tiền thuốc</div>
+                          <div class="control">
+                            <div class="no-border text-bold">
+                              <h:outputText style="color: #f00;" id="itSumAmount" value="emr311dto.sumAmount"
+                                converter="currency"></h:outputText>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group w20">
+                    <div class="form-grid c1">
+                      <div class="form-group">
+                        <div class="form-control">
+                          <h:graphicImage value="../../../images/noimage.jpg"
+                            style="width: 100px; height: 100px; position: absolute; left: 50px;" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-header" style="margin-top: 20px;">
+              <h:panelGroup styleClass="tab-bar" layout="block">
+
+              </h:panelGroup>
+            </div>
+
+            <h:panelGroup id="pgItems" styleClass="items tab-item-detail active tabItems">
+              <div class="table"></div>
+            </h:panelGroup>
+
+            <div class="form-control l120">
+              <div class="label">Dặn dò</div>
+              <div class="control">
+                <h:inputTextarea value="emr311dto.prescription.notes" rows="5">
+                </h:inputTextarea>
+              </div>
+            </div>
+            <div class="form-control l120">
+              <div class="label">Hẹn tái khám</div>
+              <div class="control">
+                <h:outputText styleClass="no-border" value="sau"></h:outputText>
+                <h:inputText style="width: 50px; margin-left: 20px;" value="emr311dto.times"></h:inputText>
+                <h:selectOneMenu style="width: 65px; margin-left: 20px;" value="emr311dto.timeType">
+                  <f:selectItem itemValue="1" itemLabel="Ngày" />
+                  <f:selectItem itemValue="2" itemLabel="Tuần" />
+                  <f:selectItem itemValue="3" itemLabel="Tháng" />
+                  <f:selectItem itemValue="4" itemLabel="Năm" />
+                </h:selectOneMenu>
+                <h:outputText style="margin-left: 20px;" styleClass="no-border" value="Hoặc chọn ngày"></h:outputText>
+                <h:inputText style="width: 200px; margin-left: 20px;" id="itAppointmentDate"
+                  styleClass="calendar datetimepicker" value="emr311dto.prescription.appointmentDate"
+                  converter="dateTimeShort" p:placeholder="dd/MM/yyyy"></h:inputText>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-message">
+            <h:outputText id="actionMessage" value="" styleClass="info-message hide"></h:outputText>
+          </div>
+          <div class="action-bar">
+            <h:commandButton id="cbSave" styleClass="btn btn-primary" value="Lưu">
+
+            </h:commandButton>
+            <h:commandButton styleClass="btn" value="Xem toa">
+
+            </h:commandButton>
+
+
+            <button id="btMore" type="button" class="btn btn-default" style="margin-left: 20px"
+              onclick="showPopupMenu('#btMoreMenu', this)">More &#x25B2;</button>
+          </div>
+
+          <div id="btMoreMenu" class="popup-menu">
+            <div class="menu-body" style="width: 160px">
+              <h:commandButton styleClass="menu-item" value="Hủy toa thuốc"
+                onclick="return showConfirm('Bạn thật sự muốn hủy?');">
+              </h:commandButton>
+            </div>
+          </div>
+        </div>
+      </h:form>
+    </div>
+
+  </div>
+</f:view>
