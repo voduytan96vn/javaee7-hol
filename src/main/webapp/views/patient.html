@@ -33,19 +33,19 @@
     </div>
 
     <ul class="user-options">
-      <li class="identifier" style="cursor: pointer;"><i class="icon-user small"></i> admin <i
-        class="icon-caret-down appui-icon-caret-down link"></i><i class="icon-caret-up link appui-toggle"
+      <li class="identifier" style="cursor: pointer;"><i class="fa fa-user small"></i> admin <i
+        class="fa fa-caret-down appui-icon-caret-down link"></i><i class="icon-caret-up link appui-toggle"
         style="display: none;"></i>
         <ul id="user-account-menu" class="appui-toggle">
 
           <li><a id="" href=""> Tài khoản của tôi </a></li>
 
         </ul></li>
-      <li class="change-location"><a href="javascript:void(0);"> <i class="icon-map-marker small"></i> <span
-          id="selected-location" data-bind="text: text">Inpatient Ward</span> <i class="icon-caret-down link"></i>
+      <li class="change-location"><a href="javascript:void(0);"> <i class="fa fa-map-marker small"></i> <span
+          id="selected-location" data-bind="text: text">Inpatient Ward</span> <i class="fa icon-caret-down link"></i>
 
       </a></li>
-      <li class="logout"><a href=""> Thoát <i class="icon-signout small"></i>
+      <li class="logout"><a href=""> Thoát <i class="fa fa-sign-out-alt small"></i>
       </a></li>
     </ul>
 
@@ -72,10 +72,10 @@
   </header>
 
   <ul id="breadcrumbs">
-    <li><a href="https://master-1.voduytan.local/app-1.0.0/faces/index.html"> <i class="icon-home small"></i>
+    <li><a href="https://master-1.voduytan.local/app-1.0.0/faces/index.html"> <i class="fa fa-home small"></i>
     </a></li>
 
-    <li><i class="icon-chevron-right link"></i> Tìm kiếm hồ sơ bệnh nhân</li>
+    <li><i class="fa icon-chevron-right link"></i> Tìm kiếm hồ sơ bệnh nhân</li>
   </ul>
 
   <div id="body-wrapper">
@@ -109,7 +109,7 @@
       <h:form method="get" id="patient-search-form" onsubmit="return false">
         <h:inputText id="patient-search" placeholder="Tìm kiếm bằng ID hoặc tên bệnh nhân" autocomplete="off"
           type="text" />
-        <i id="patient-search-clear-button" class="small icon-remove-sign"></i>
+        <i id="patient-search-clear-button" class="fa small icon-remove-sign"></i>
 
       </h:form>
 
@@ -147,6 +147,7 @@
               </tr>
             </tbody>
           </table>
+
           <div class="fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg">
             <div class="dataTables_info" id="patient-search-results-table_info"></div>
             <div
@@ -168,141 +169,6 @@
     </div>
 
   </div>
-  <script type="text/javascript">
-
-    var sessionLocationModel = {
-        id: ko.observable(),
-        text: ko.observable()
-    };
-
-    jq(function () {
-
-        ko.applyBindings(sessionLocationModel, jq('.change-location').get(0));
-        sessionLocationModel.id(6);
-        sessionLocationModel.text("Inpatient Ward");
-
-        // we only want to activate the functionality to change location if there are actually multiple login locations
-        
-
-            jq(".change-location a").click(function () {
-                jq('#session-location').show();
-                jq(this).addClass('focus');
-                jq(".change-location a i:nth-child(3)").removeClass("icon-caret-down");
-                jq(".change-location a i:nth-child(3)").addClass("icon-caret-up");
-            });
-
-            jq('#session-location').mouseleave(function () {
-                jq('#session-location').hide();
-                jq(".change-location a").removeClass('focus');
-                jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
-                jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
-            });
-
-            jq("#session-location ul.select li").click(function (event) {
-                var element = jq(event.target);
-                var locationId = element.attr("locationId");
-                var locationUuid = element.attr("locationUuid");
-                var locationName = element.attr("locationName");
-
-                var data = { locationId: locationId };
-
-                jq("#spinner").show();
-
-                jq.post(emr.fragmentActionLink("appui", "session", "setLocation", data), function (data) {
-                    sessionLocationModel.id(locationId);
-                    sessionLocationModel.text(locationName);
-                    jq('#selected-location').attr("location-uuid", locationUuid);
-                    jq('#session-location li').removeClass('selected');
-                    element.addClass('selected');
-                    jq("#spinner").hide();
-                    jq(document).trigger("sessionLocationChanged");
-                })
-
-                jq('#session-location').hide();
-                jq(".change-location a").removeClass('focus');
-                jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
-                jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
-            });
-
-            
-            jq('.identifier').hover(
-                function(){
-                    jq('.appui-toggle').show();
-                    jq('.appui-icon-caret-down').hide();
-                },
-                 function(){
-                    jq('.appui-toggle').hide();
-                    jq('.appui-icon-caret-down').show();
-                 }
-            );
-            jq('.identifier').css('cursor', 'pointer');
-            
-        
-    });
-
-</script>
-  <script type="text/javascript">
-
-    var breadcrumbs = [
-        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.html' },
-        { label: "Find Patient Record"}
-    ];
-
-
-    jq(function() {
-        jq('#patient-search').focus();
-    });
-
-</script>
-  <script type="text/javascript">
-    var listableAttributeTypes = [];
-    
-    var lastViewedPatients = [];
-    
-    function handlePatientRowSelection() {
-        this.handle = function (row) {
-            var uuid = row.uuid;
-            location.href = '/' + OPENMRS_CONTEXT_PATH + emr.applyContextModel('/coreapps/clinicianfacing/patient.page?patientId={{ patientId }}', { patientId: uuid, breadcrumbOverride: ''});
-        }
-    }
-    var handlePatientRowSelection =  new handlePatientRowSelection();
-    jq(function() {
-        var widgetConfig = {
-            initialPatients: lastViewedPatients,
-            doInitialSearch: null,
-            minSearchCharacters: 3,
-            afterSelectedUrl: '/coreapps/clinicianfacing/patient.page?patientId={{ patientId }}',
-            breadcrumbOverride: '',
-            searchDelayShort: 300,
-            searchDelayLong: 1000,
-            handleRowSelection: handlePatientRowSelection,
-            dateFormat: 'DD MMM YYYY',
-            locale: 'en',
-            defaultLocale: 'en_gb',
-            attributeTypes: listableAttributeTypes,
-            messages: {
-                info: 'Showing _START_ to _END_ of _TOTAL_ entries',
-                first: 'First',
-                previous: 'Previous',
-                next: 'Next',
-                last: 'Last',
-                noMatchesFound: 'No matching records found',
-                noData: 'No Data Available',
-                recent: 'Recent',
-                searchError: 'An error occurred while searching for patients',
-                identifierColHeader: 'Identifier',
-                nameColHeader: 'Name',
-                genderColHeader: 'Gender',
-                ageColHeader: 'Age',
-                birthdateColHeader: 'Birthdate',
-                ageInMonths: '{0} Month(s)',
-                ageInDays: '{0} Day(s)'
-            }
-        };
-
-        new PatientSearchWidget(widgetConfig);
-    });
-</script>
 </h:body>
   </html>
 </f:view>
