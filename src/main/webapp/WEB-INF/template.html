@@ -23,52 +23,47 @@
 </h:head>
 
 <h:body>
+  <div class="logo">
+    <a href="https://master-1.voduytan.local/app-1.0.0/faces/index.html"> <img src="./../images/logo.png" /></a>
+  </div>
 
-  <header>
-    <div class="logo">
-      <a href="https://master-1.voduytan.local/app-1.0.0/faces/index.html"> <img src="./../images/logo.png" /></a>
+  <ul class="user-options">
+    <li class="identifier" style="cursor: pointer;"><i class="icon-user small"></i> admin <i
+      class="icon-caret-down appui-icon-caret-down link"></i><i class="icon-caret-up link appui-toggle"
+      style="display: none;"></i>
+      <ul id="user-account-menu" class="appui-toggle">
+
+        <li><a id="" href=""> Tài khoản của tôi </a></li>
+
+      </ul></li>
+    <li class="change-location"><a href="javascript:void(0);"> <i class="icon-map-marker small"></i> <span
+        id="selected-location" data-bind="text: text">Inpatient Ward</span> <i class="icon-caret-down link"></i>
+
+    </a></li>
+    <li class="logout"><a href=""> Thoát <i class="icon-signout small"></i>
+    </a></li>
+  </ul>
+
+  <div id="session-location">
+    <div id="spinner" style="position: absolute; display: none">
+      <img src="./../images/spinner.gif" />
     </div>
+    <ul class="select">
 
-    <ul class="user-options">
-      <li class="identifier" style="cursor: pointer;"><i class="icon-user small"></i> admin <i
-        class="icon-caret-down appui-icon-caret-down link"></i><i class="icon-caret-up link appui-toggle"
-        style="display: none;"></i>
-        <ul id="user-account-menu" class="appui-toggle">
+      <li class="selected">Inpatient Ward</li>
 
-          <li><a id="" href=""> Tài khoản của tôi </a></li>
+      <li class="">Isolation Ward</li>
 
-        </ul></li>
-      <li class="change-location"><a href="javascript:void(0);"> <i class="icon-map-marker small"></i> <span
-          id="selected-location" data-bind="text: text">Inpatient Ward</span> <i class="icon-caret-down link"></i>
+      <li class="">Laboratory</li>
 
-      </a></li>
-      <li class="logout"><a href=""> Thoát <i class="icon-signout small"></i>
-      </a></li>
+      <li class="">Outpatient Clinic</li>
+
+      <li class="">Pharmacy</li>
+
+      <li class="">Registration Desk</li>
+
     </ul>
-
-    <div id="session-location">
-      <div id="spinner" style="position: absolute; display: none">
-        <img src="./../images/spinner.gif" />
-      </div>
-      <ul class="select">
-
-        <li class="selected">Inpatient Ward</li>
-
-        <li class="">Isolation Ward</li>
-
-        <li class="">Laboratory</li>
-
-        <li class="">Outpatient Clinic</li>
-
-        <li class="">Pharmacy</li>
-
-        <li class="">Registration Desk</li>
-
-      </ul>
-    </div>
-
-  </header>
-
+  </div>
 </h:body>
   </html>
 </f:view>
