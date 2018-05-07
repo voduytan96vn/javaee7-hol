@@ -103,7 +103,8 @@
       <h2>Tìm kiếm hồ sơ bệnh nhân</h2>
 
       <h:form method="get" id="patient-search-form" onsubmit="return false">
-        <input id="patient-search" placeholder="Search by ID or Name" autocomplete="off" type="text">
+        <h:inputText id="patient-search" placeholder="Tìm kiếm bằng ID hoặc tên bệnh nhân" autocomplete="off"
+          type="text" />
         <i id="patient-search-clear-button" class="small icon-remove-sign"></i>
 
       </h:form>
@@ -138,7 +139,7 @@
             </thead>
             <tbody role="alert" aria-live="polite" aria-relevant="all">
               <tr class="odd">
-                <td colspan="5" class="dataTables_empty" valign="top">No matching records found</td>
+                <td colspan="5" class="dataTables_empty" valign="top">Không có hồ sơ được tìm thấy</td>
               </tr>
             </tbody>
           </table>
