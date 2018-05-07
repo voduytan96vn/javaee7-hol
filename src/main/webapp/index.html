@@ -8,6 +8,10 @@
 <h:body>
   <ui:composition template="./WEB-INF/template.html">
 
+    <ui:define name="content">
+                Showing #{movieFacadeREST.countREST()} movies in #{theaterFacadeREST.countREST()} theaters!
+            </ui:define>
+
     <ul id="breadcrumbs"></ul>
 
     <div id="body-wrapper">
@@ -87,7 +91,7 @@
         <ui:insert name="content">Content</ui:insert>
       </div>
     </div>
-Showing #{movieFacadeREST.countREST()} movies in #{theaterFacadeREST.countREST()} theaters!
+
 
   </ui:composition>
 
