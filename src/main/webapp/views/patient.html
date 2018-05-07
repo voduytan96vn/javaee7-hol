@@ -15,11 +15,15 @@
   <link href="#{request.contextPath}/styles/header.css" rel="stylesheet" type="text/css" />
   <link href="#{request.contextPath}/styles/referenceapplication.css" rel="stylesheet" type="text/css" />
   <link href="#{request.contextPath}/styles/fontawesome.css" rel="stylesheet" type="text/css" />
+
   <script src="#{request.contextPath}/scripts/jquery.js?v=#{app.version}" type="text/javascript"></script>
   <script src="#{request.contextPath}/scripts/jquery-ui.js?v=#{app.version}" type="text/javascript"></script>
   <script src="#{request.contextPath}/scripts/underscore-min.js?v=#{app.version}" type="text/javascript"></script>
   <script src="#{request.contextPath}/scripts/knockout-2.js?v=#{app.version}" type="text/javascript"></script>
   <script src="#{request.contextPath}/scripts/emr.js?v=#{app.version}" type="text/javascript"></script>
+
+  <link href="#{request.contextPath}/styles/dataTables_jui.css" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/patientSearchWidget.css" rel="stylesheet" type="text/css" />
 </h:head>
 
 <h:body>
@@ -164,11 +168,83 @@
     </div>
 
   </div>
+  <script type="text/javascript">
 
+    var sessionLocationModel = {
+        id: ko.observable(),
+        text: ko.observable()
+    };
+
+    jq(function () {
+
+        ko.applyBindings(sessionLocationModel, jq('.change-location').get(0));
+        sessionLocationModel.id(6);
+        sessionLocationModel.text("Inpatient Ward");
+
+        // we only want to activate the functionality to change location if there are actually multiple login locations
+        
+
+            jq(".change-location a").click(function () {
+                jq('#session-location').show();
+                jq(this).addClass('focus');
+                jq(".change-location a i:nth-child(3)").removeClass("icon-caret-down");
+                jq(".change-location a i:nth-child(3)").addClass("icon-caret-up");
+            });
+
+            jq('#session-location').mouseleave(function () {
+                jq('#session-location').hide();
+                jq(".change-location a").removeClass('focus');
+                jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
+                jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
+            });
+
+            jq("#session-location ul.select li").click(function (event) {
+                var element = jq(event.target);
+                var locationId = element.attr("locationId");
+                var locationUuid = element.attr("locationUuid");
+                var locationName = element.attr("locationName");
+
+                var data = { locationId: locationId };
+
+                jq("#spinner").show();
+
+                jq.post(emr.fragmentActionLink("appui", "session", "setLocation", data), function (data) {
+                    sessionLocationModel.id(locationId);
+                    sessionLocationModel.text(locationName);
+                    jq('#selected-location').attr("location-uuid", locationUuid);
+                    jq('#session-location li').removeClass('selected');
+                    element.addClass('selected');
+                    jq("#spinner").hide();
+                    jq(document).trigger("sessionLocationChanged");
+                })
+
+                jq('#session-location').hide();
+                jq(".change-location a").removeClass('focus');
+                jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
+                jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
+            });
+
+            
+            jq('.identifier').hover(
+                function(){
+                    jq('.appui-toggle').show();
+                    jq('.appui-icon-caret-down').hide();
+                },
+                 function(){
+                    jq('.appui-toggle').hide();
+                    jq('.appui-icon-caret-down').show();
+                 }
+            );
+            jq('.identifier').css('cursor', 'pointer');
+            
+        
+    });
+
+</script>
   <script type="text/javascript">
 
     var breadcrumbs = [
-        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
+        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.html' },
         { label: "Find Patient Record"}
     ];
 
