@@ -52,11 +52,6 @@ public class ResourceProperties implements Serializable {
 	private static ResourceProperties loggingResources;
 	private static ResourceProperties paramResources;
 
-	/**
-	 * 「ApplicationResources」Application resource getter
-	 * 
-	 * @return
-	 */
 	public static synchronized ResourceProperties getApplicationResources() throws Exception {
 		if (applicationResources == null) {
 			applicationResources = new ResourceProperties("ApplicationResources", true);
@@ -64,11 +59,7 @@ public class ResourceProperties implements Serializable {
 		return applicationResources;
 	}
 
-	/**
-	 * 「MessageResources」Message resource getter
-	 * 
-	 * @return
-	 */
+
 	public static synchronized ResourceProperties getMessageResources() throws Exception {
 		if (messageResources == null) {
 			messageResources = new ResourceProperties("MessageResources", true);
@@ -76,11 +67,7 @@ public class ResourceProperties implements Serializable {
 		return messageResources;
 	}
 
-	/**
-	 * 「LoggingResources」Logging resource getter
-	 * 
-	 * @return
-	 */
+
 	public static synchronized ResourceProperties getLoggingResources() throws Exception {
 		if (loggingResources == null) {
 			loggingResources = new ResourceProperties("LoggingResources", true);
@@ -88,11 +75,7 @@ public class ResourceProperties implements Serializable {
 		return loggingResources;
 	}
 
-	/**
-	 * 「Setting」Setting resource getter
-	 * 
-	 * @return
-	 */
+
 	public static synchronized ResourceProperties getSettingResources() throws Exception {
 		if (setting == null) {
 			setting = new ResourceProperties("Setting", true);
@@ -100,11 +83,6 @@ public class ResourceProperties implements Serializable {
 		return setting;
 	}
 
-	/**
-	 * 「ParamResources」Param resource getter
-	 * 
-	 * @return
-	 */
 	public static synchronized ResourceProperties getParamResources() throws Exception {
 		if (paramResources == null) {
 			paramResources = new ResourceProperties("ParamResources", true);
@@ -112,24 +90,11 @@ public class ResourceProperties implements Serializable {
 		return paramResources;
 	}
 
-	/**
-	 * Construct a new MessageResources according to the specified parameters.
-	 * 
-	 * @param config
-	 *            The configuration parameter for this MessageResources
-	 */
+
 	public ResourceProperties(String config) throws Exception {
 		this(config, false);
 	}
 
-	/**
-	 * Construct a new MessageResources according to the specified parameters.
-	 * 
-	 * @param config
-	 *            The configuration parameter for this MessageResources
-	 * @param returnNull
-	 *            The returnNull property we should initialize with
-	 */
 	public ResourceProperties(String config, boolean returnNull) throws Exception {
 		super();
 		this.config = config;
@@ -147,13 +112,7 @@ public class ResourceProperties implements Serializable {
 		return properties;
 	}
 
-	/**
-	 * Escape any single quote characters that are included in the specified
-	 * message string.
-	 * 
-	 * @param string
-	 *            The string to be escaped
-	 */
+
 	protected String escape(String string) {
 		if ((string == null) || (string.indexOf('\'') < 0)) {
 			return string;
@@ -175,21 +134,7 @@ public class ResourceProperties implements Serializable {
 		return sb.toString();
 	}
 
-	/**
-	 * Returns a text message for the specified key, for the default Locale. A
-	 * null string result will be returned by this method if no relevant message
-	 * resource is found for this key or Locale, if the <code>returnNull</code>
-	 * property is set. Otherwise, an appropriate error message will be
-	 * returned.
-	 * <p>
-	 * This method must be implemented by a concrete subclass.
-	 * 
-	 * @param locale
-	 *            The requested message Locale, or <code>null</code> for the
-	 *            system default Locale
-	 * @param key
-	 *            The message key to look up
-	 */
+
 	public String getMessage(Locale locale, String key) throws Exception {
 		// Initialize variables we will require
 		String localeKey = localeKey(locale);
@@ -258,19 +203,6 @@ public class ResourceProperties implements Serializable {
 		return ("???" + messageKey(locale, key) + "???");
 	}
 
-	/**
-	 * Returns a text message after parametric replacement of the specified
-	 * parameter placeholders. A null string result will be returned by this
-	 * method if no resource bundle has been configured.
-	 * 
-	 * @param locale
-	 *            The requested message Locale, or <code>null</code> for the
-	 *            system default Locale
-	 * @param key
-	 *            The message key to look up
-	 * @param args
-	 *            An array of replacement parameters for placeholders
-	 */
 	public String getMessage(Locale locale, String key, Object... args) throws Exception {
 		// Cache MessageFormat instances as they are accessed
 		if (locale == null) {
@@ -297,41 +229,14 @@ public class ResourceProperties implements Serializable {
 		return format.format(args);
 	}
 
-	/**
-	 * Returns a text message for the specified key, for the default Locale.
-	 * 
-	 * @param key
-	 *            The message key to look up
-	 */
 	public String getMessage(String key) throws Exception {
 		return this.getMessage((Locale) null, key);
 	}
 
-	/**
-	 * Returns a text message after parametric replacement of the specified
-	 * parameter placeholder.
-	 * 
-	 * @param key
-	 *            The message key to look up
-	 * @param args
-	 *            An array of replacement parameters for placeholders
-	 */
 	public String getMessage(String key, Object... args) throws Exception {
 		return this.getMessage((Locale) null, key, args);
 	}
 
-	/**
-	 * Load the messages associated with the specified Locale key. For this
-	 * implementation, the <code>config</code> property should contain a fully
-	 * qualified package and resource name, separated by periods, of a series of
-	 * property resources to be loaded from the class loader that created this
-	 * PropertyMessageResources applicationResources. This is exactly the same
-	 * name format you would use when utilizing the
-	 * <code>java.util.PropertyResourceBundle</code> class.
-	 * 
-	 * @param localeKey
-	 *            Locale key for the messages to be retrieved
-	 */
 	protected synchronized void loadLocale(String localeKey) throws Exception {
 		// Have we already attempted to load messages for this locale?
 		if (locales.get(localeKey) != null) {
@@ -385,40 +290,15 @@ public class ResourceProperties implements Serializable {
 		}
 	}
 
-	/**
-	 * Compute and return a key to be used in caching information by a Locale.
-	 * <strong>NOTE </strong>- The locale key for the default Locale in our
-	 * environment is a zero length String.
-	 * 
-	 * @param locale
-	 *            The locale for which a key is desired
-	 */
+
 	protected String localeKey(Locale locale) {
 		return (locale == null) ? "" : locale.toString();
 	}
 
-	/**
-	 * Compute and return a key to be used in caching information by Locale and
-	 * message key.
-	 * 
-	 * @param locale
-	 *            The Locale for which this format key is calculated
-	 * @param key
-	 *            The message key for which this format key is calculated
-	 */
 	protected String messageKey(Locale locale, String key) {
 		return (localeKey(locale) + "." + key);
 	}
 
-	/**
-	 * Compute and return a key to be used in caching information by locale key
-	 * and message key.
-	 * 
-	 * @param localeKey
-	 *            The locale key for which this cache key is calculated
-	 * @param key
-	 *            The message key for which this cache key is calculated
-	 */
 	protected String messageKey(String localeKey, String key) {
 		return (localeKey + "." + key);
 	}
