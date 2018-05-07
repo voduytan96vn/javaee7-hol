@@ -5,96 +5,147 @@
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8">
   <html>
 
+<h:head>
+  <title>HOME</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href="#{request.contextPath}/styles/default.css" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/cssLayout.css" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/jquery-ui-1.css" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/jquery.css" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/header.css" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/referenceapplication.css" rel="stylesheet" type="text/css" />
+  <link href="#{request.contextPath}/styles/fontawesome.css" rel="stylesheet" type="text/css" />
+  <script src="#{request.contextPath}/scripts/jquery.js?v=#{app.version}" type="text/javascript"></script>
+  <script src="#{request.contextPath}/scripts/jquery-ui.js?v=#{app.version}" type="text/javascript"></script>
+  <script src="#{request.contextPath}/scripts/underscore-min.js?v=#{app.version}" type="text/javascript"></script>
+  <script src="#{request.contextPath}/scripts/knockout-2.js?v=#{app.version}" type="text/javascript"></script>
+  <script src="#{request.contextPath}/scripts/emr.js?v=#{app.version}" type="text/javascript"></script>
+</h:head>
+
 <h:body>
-  <ui:composition template="./WEB-INF/template.html">
+  <header>
+    <div class="logo">
+      <a href="https://master-1.voduytan.local/app-1.0.0/faces/index.html"> <img src="./../images/logo.png" /></a>
+    </div>
 
-    <ui:define name="content">
-                Showing #{movieFacadeREST.countREST()} movies in #{theaterFacadeREST.countREST()} theaters!
-            </ui:define>
+    <ul class="user-options">
+      <li class="identifier" style="cursor: pointer;"><i class="icon-user small"></i> admin <i
+        class="icon-caret-down appui-icon-caret-down link"></i><i class="icon-caret-up link appui-toggle"
+        style="display: none;"></i>
+        <ul id="user-account-menu" class="appui-toggle">
 
-    <ul id="breadcrumbs"></ul>
+          <li><a id="" href=""> Tài khoản của tôi </a></li>
 
-    <div id="body-wrapper">
-      <div id="error-message" class="note-container">
-        <div class="note error" style="display: none">
-          <div class="text">
-            <i class="icon-remove medium"></i>
+        </ul></li>
+      <li class="change-location"><a href="javascript:void(0);"> <i class="icon-map-marker small"></i> <span
+          id="selected-location" data-bind="text: text">Inpatient Ward</span> <i class="icon-caret-down link"></i>
 
-          </div>
-          <div class="close-icon">
-            <i class="icon-remove"></i>
-          </div>
-        </div>
+      </a></li>
+      <li class="logout"><a href=""> Thoát <i class="icon-signout small"></i>
+      </a></li>
+    </ul>
+
+    <div id="session-location">
+      <div id="spinner" style="position: absolute; display: none">
+        <img src="./../images/spinner.gif" />
       </div>
+      <ul class="select">
 
-      <div id="info-message" class="note-container">
-        <div class="note success" style="display: none">
-          <div class="text">
-            <i class="icon-ok medium"></i>
+        <li class="selected">Inpatient Ward</li>
 
-          </div>
-          <div class="close-icon">
-            <i class="icon-remove"></i>
-          </div>
+        <li class="">Isolation Ward</li>
+
+        <li class="">Laboratory</li>
+
+        <li class="">Outpatient Clinic</li>
+
+        <li class="">Pharmacy</li>
+
+        <li class="">Registration Desk</li>
+
+      </ul>
+    </div>
+  </header>
+
+  <ul id="breadcrumbs"></ul>
+  <div id="body-wrapper">
+    <div id="error-message" class="note-container">
+      <div class="note error" style="display: none">
+        <div class="text">
+          <i class="icon-remove medium"></i>
+
         </div>
-      </div>
-      <div id="content" class="container">
-        <div id="home-container">
-          <h4>Logged in as Super User () at Inpatient Ward.</h4>
-          <div id="apps">
-            <a id="coreapps-activeVisitsHomepageLink-coreapps-activeVisitsHomepageLink-extension" href=""
-              class="button app big"> <i class="icon-search"></i> Tìm kiếm hồ sơ bệnh nhân
-            </a> <a
-              id="org-openmrs-module-coreapps-activeVisitsHomepageLink-org-openmrs-module-coreapps-activeVisitsHomepageLink-extension"
-              href="" class="button app big"> <i class="icon-calendar"></i> Active Visits
-            </a> <a
-              id="referenceapplication-registrationapp-registerPatient-homepageLink-referenceapplication-registrationapp-registerPatient-homepageLink-extension"
-              href="" class="button app big"> <i class="icon-user"></i> Đăng ký bệnh nhân
-            </a> <a id="referenceapplication-vitals-referenceapplication-vitals-extension" href="" class="button app big">
-              <i class="icon-vitals"></i> Capture Vitals
-            </a> <a id="appointmentschedulingui-homeAppLink-appointmentschedulingui-homeAppLink-extension" href=""
-              class="button app big"> <i class="icon-calendar"></i> Lên lịch hẹn
-            </a> <a id="reportingui-reports-homepagelink-reportingui-reports-homepagelink-extension" href=""
-              class="button app big"> <i class="icon-list-alt"></i> Báo cáo
-            </a> <a id="coreapps-datamanagement-homepageLink-coreapps-datamanagement-homepageLink-extension" href=""
-              class="button app big"> <i class="icon-hdd"></i> Quản lý dữ liệu
-            </a> <a
-              id="org-openmrs-module-adminui-configuremetadata-homepageLink-org-openmrs-module-adminui-configuremetadata-homepageLink-extension"
-              href="" class="button app big"> <i class="icon-tasks"></i> Cấu hình dữ liệu
-            </a> <a id="coreapps-systemadministration-homepageLink-coreapps-systemadministration-homepageLink-extension"
-              href="" class="button app big"> <i class="icon-cogs"></i> Quản trị hệ thống
-            </a>
-          </div>
+        <div class="close-icon">
+          <i class="icon-remove"></i>
         </div>
       </div>
     </div>
-    <div>
-      <div id="left">
-        <ui:insert name="left">
-          <h:form>
-            <h:commandLink action="booking">Book a movie</h:commandLink>
-            <p />
-            <h:outputLink value="#{request.contextPath}/faces/chat/chatroom.html">Chat Room</h:outputLink>
-            <p />
-            <h:outputLink value="#{request.contextPath}/faces/client/movies.html">Movies</h:outputLink>
-            <p />
-            <h:outputLink value="#{request.contextPath}/faces/batch/sales.html">Sales</h:outputLink>
-            <p />
-            <h:outputLink value="#{request.contextPath}/faces/points/points.html">Points</h:outputLink>
-            <p />
-            <h:outputLink value="#{request.contextPath}/faces/views/emr/index.html">EMR</h:outputLink>
 
-          </h:form>
-        </ui:insert>
-      </div>
-      <div id="content" class="left_content">
-        <ui:insert name="content">Content</ui:insert>
+    <div id="info-message" class="note-container">
+      <div class="note success" style="display: none">
+        <div class="text">
+          <i class="icon-ok medium"></i>
+
+        </div>
+        <div class="close-icon">
+          <i class="icon-remove"></i>
+        </div>
       </div>
     </div>
+    <div id="content" class="container">
+      <div id="home-container">
+        <h4>Logged in as Super User () at Inpatient Ward.</h4>
+        <div id="apps">
+          <a id="coreapps-activeVisitsHomepageLink-coreapps-activeVisitsHomepageLink-extension"
+            href="#{request.contextPath}/faces/views/patient.html" class="button app big"> <i class="icon-search"></i>
+            Tìm kiếm hồ sơ bệnh nhân
+          </a> <a
+            id="org-openmrs-module-coreapps-activeVisitsHomepageLink-org-openmrs-module-coreapps-activeVisitsHomepageLink-extension"
+            href="" class="button app big"> <i class="icon-calendar"></i> Active Visits
+          </a> <a
+            id="referenceapplication-registrationapp-registerPatient-homepageLink-referenceapplication-registrationapp-registerPatient-homepageLink-extension"
+            href="" class="button app big"> <i class="icon-user"></i> Đăng ký bệnh nhân
+          </a> <a id="referenceapplication-vitals-referenceapplication-vitals-extension" href="" class="button app big">
+            <i class="icon-vitals"></i> Capture Vitals
+          </a> <a id="appointmentschedulingui-homeAppLink-appointmentschedulingui-homeAppLink-extension" href=""
+            class="button app big"> <i class="icon-calendar"></i> Lên lịch hẹn
+          </a> <a id="reportingui-reports-homepagelink-reportingui-reports-homepagelink-extension" href=""
+            class="button app big"> <i class="icon-list-alt"></i> Báo cáo
+          </a> <a id="coreapps-datamanagement-homepageLink-coreapps-datamanagement-homepageLink-extension" href=""
+            class="button app big"> <i class="icon-hdd"></i> Quản lý dữ liệu
+          </a> <a
+            id="org-openmrs-module-adminui-configuremetadata-homepageLink-org-openmrs-module-adminui-configuremetadata-homepageLink-extension"
+            href="" class="button app big"> <i class="icon-tasks"></i> Cấu hình dữ liệu
+          </a> <a id="coreapps-systemadministration-homepageLink-coreapps-systemadministration-homepageLink-extension"
+            href="" class="button app big"> <i class="icon-cogs"></i> Quản trị hệ thống
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div id="left">
+      <ui:insert name="left">
+        <h:form>
+          <h:commandLink action="booking">Book a movie</h:commandLink>
+          <p />
+          <h:outputLink value="#{request.contextPath}/faces/chat/chatroom.html">Chat Room</h:outputLink>
+          <p />
+          <h:outputLink value="#{request.contextPath}/faces/client/movies.html">Movies</h:outputLink>
+          <p />
+          <h:outputLink value="#{request.contextPath}/faces/batch/sales.html">Sales</h:outputLink>
+          <p />
+          <h:outputLink value="#{request.contextPath}/faces/points/points.html">Points</h:outputLink>
+          <p />
+          <h:outputLink value="#{request.contextPath}/faces/views/emr/index.html">EMR</h:outputLink>
 
-
-  </ui:composition>
-
+        </h:form>
+      </ui:insert>
+    </div>
+    <div id="content" class="left_content">
+      <ui:insert name="content">Content</ui:insert>
+    </div>
+  </div>
 </h:body>
   </html>
 </f:view>
