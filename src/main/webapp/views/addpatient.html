@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8">
+  <html>
+
+<h:body>
+
+  <ui:composition template="./../WEB-INF/template.html">
+
+    <ui:define name="content">
+      <h1>Thêm mới bệnh nhân</h1>
+      <h:form>
+        <h:table cellpadding="5" cellspacing="5">
+          <tr>
+            <th align="left">patient Id:</th>
+            <td><h:inputText value="#{patientBackingBean.patientId}" /></td>
+          </tr>
+          <tr>
+            <th align="left">patient Name:</th>
+            <td><h:inputText value="#{patientBackingBean.patientName}" /></td>
+          </tr>
+          <tr>
+            <th align="left">patient address:</th>
+            <td><h:inputText value="#{patientBackingBean.address}" /></td>
+          </tr>
+
+        </h:table>
+        <h:commandButton value="Add" action="patient" actionListener="#{patientClientBean.addPatient()}" />
+      </h:form>
+    </ui:define>
+
+  </ui:composition>
+
+</h:body>
+  </html>
+</f:view>

@@ -37,41 +37,65 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.movieplex7.chat;
+
+package org.javaee7.movieplex7.json;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import javax.websocket.EncodeException;
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
+import java.io.InputStream;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+
+import javax.json.Json;
+import javax.json.stream.JsonParser;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.ext.MessageBodyReader;
+import javax.ws.rs.ext.Provider;
+
+import org.javaee7.movieplex7.entities.Patient;
 
 /**
  * @author Arun Gupta
  */
-@ServerEndpoint("/websocket")
-public class ChatServer {
+@Provider
+@Consumes(MediaType.APPLICATION_JSON)
+public class PatientReader implements MessageBodyReader<Patient> {
 
-private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
-
-    @OnOpen
-    public void onOpen(Session peer) {
-        peers.add(peer);
+    @Override
+    public boolean isReadable(Class<?> type, Type type1, Annotation[] antns, MediaType mt) {
+        return Patient.class.isAssignableFrom(type);
     }
 
-    @OnClose
-    public void onClose(Session peer) {
-        peers.remove(peer);
-    }
-
-    @OnMessage
-    public void message(String message, Session client) throws IOException, EncodeException {
-        for (Session peer : peers) {
-           peer.getBasicRemote().sendText(message);
+    @Override
+    public Patient readFrom(Class<Patient> type, Type type1, Annotation[] antns, MediaType mt, MultivaluedMap<String, String> mm, InputStream in) throws IOException, WebApplicationException {
+    	Patient patient = new Patient();
+        JsonParser parser = Json.createParser(in);
+        while (parser.hasNext()) {
+            switch (parser.next()) {
+                case KEY_NAME:
+                    String key = parser.getString();
+                    parser.next();
+                    switch (key) {
+                        case "id":
+                        	patient.setId(parser.getLong());
+                            break;
+                        case "name":
+                        	patient.setName(parser.getString());
+                            break;
+                        case "address":
+                        	patient.setAddress(parser.getString());
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
+        return patient;
     }
+
 }

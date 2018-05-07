@@ -37,89 +37,73 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.movieplex7.rest;
+package org.javaee7.movieplex7.client;
 
-import java.util.List;
-
-import javax.ejb.Stateless;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 
-import org.javaee7.movieplex7.entities.Sales;
+import org.javaee7.movieplex7.entities.Patient;
+import org.javaee7.movieplex7.json.MovieWriter;
 
-/**
- * @author Arun Gupta
- */
 @Named
-@Stateless
-@Path("sales")
-public class SalesFacadeREST extends AbstractFacade<Sales> {
-    @PersistenceContext
-    private EntityManager em;
+@RequestScoped
+public class PatientClientBean {
 
-    public SalesFacadeREST() {
-        super(Sales.class);
-    }
+	@Inject
+	PatientBackingBean bean;
 
-    @POST
-    @Override
-    @Consumes({"application/xml", "application/json"})
-    public void create(Sales entity) {
-        super.create(entity);
-    }
+	Client client;
+	WebTarget target;
 
-    @PUT
-    @Path("{id}")
-    public void edit(@PathParam("id") Integer id) {
-        super.edit(id);
-    }
+	@Inject
+	HttpServletRequest httpServletRequest;
 
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
-    }
+	@PostConstruct
+	public void init() {
+		client = ClientBuilder.newClient();
+		target = client.target("http://" + httpServletRequest.getLocalName() + ":" + httpServletRequest.getLocalPort()
+				+ "/" + httpServletRequest.getContextPath() + "/webresources/patient/");
+	}
 
-    @GET
-    @Path("{id}")
-    @Produces({"application/xml", "application/json"})
-    public Sales find(@PathParam("id") Integer id) {
-        return super.find(id);
-    }
+	@PreDestroy
+	public void destroy() {
+		client.close();
+	}
 
-    @GET
-    @Override
-    @Produces({"application/xml", "application/json"})
-    public List<Sales> getAll() {
-        return super.getAll();
-    }
+	public Patient[] getPatients() {
+		return target.request().get(Patient[].class);
+	}
 
-    @GET
-    @Path("{from}/{to}")
-    @Produces({"application/xml", "application/json"})
-    public List<Sales> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
+	public Patient getPatient() {
+		Patient m = target.path("{patient}").resolveTemplate("patient", bean.getPatientId()).request()
+				.get(Patient.class);
+		return m;
+	}
 
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
-    }
+	public Patient getPatientJson() {
+		Patient m = target.path("{patient}").resolveTemplate("patient", bean.getPatientId())
+				.request(MediaType.APPLICATION_JSON).get(Patient.class);
+		return m;
+	}
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-    
+	public void addPatient() {
+		Patient m = new Patient();
+		m.setId(bean.getPatientId());
+		m.setName(bean.getPatientName());
+		m.setAddress(bean.getAddress());
+		target.register(MovieWriter.class).request().post(Entity.entity(m, MediaType.APPLICATION_JSON));
+	}
+
+	public void deletePatient() {
+		target.path("{movieId}").resolveTemplate("movieId", bean.getPatientId()).request().delete();
+	}
 }

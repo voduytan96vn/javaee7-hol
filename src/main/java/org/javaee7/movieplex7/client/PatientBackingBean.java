@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2012 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -37,59 +37,41 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.movieplex7.points;
+package org.javaee7.movieplex7.client;
 
-import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.jms.JMSConsumer;
-import javax.jms.JMSContext;
-import javax.jms.JMSDestinationDefinition;
-import javax.jms.JMSException;
-import javax.jms.Queue;
-import javax.jms.QueueBrowser;
 
-/**
- * @author Arun Gupta
- */
-@JMSDestinationDefinition(name = "java:global/jms/pointsQueue",
-        interfaceName = "javax.jms.Queue")
 @Named
-@RequestScoped
-public class ReceivePointsBean {
+@SessionScoped
+public class PatientBackingBean implements Serializable {
 
-    @Inject
-//    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
-    JMSContext context;
-    
-    @Resource(lookup = "java:global/jms/pointsQueue")
-    Queue pointsQueue;
+	Long patientId;
+	String patientName;
+	String address;
 
-    public String receiveMessage() {
-        try (JMSConsumer consumer = context.createConsumer(pointsQueue)) {
-            String message = consumer.receiveBody(String.class);
-            System.out.println("Received message: " + message);
-            return message;
-        }
-    }
+	public Long getPatientId() {
+		return patientId;
+	}
 
-    public int getQueueSize() {
-        int count = 0;
-        try {
-            QueueBrowser browser = context.createBrowser(pointsQueue);
-            Enumeration elems = browser.getEnumeration();
-            while (elems.hasMoreElements()) {
-                elems.nextElement();
-                count++;
-            }
-        } catch (JMSException ex) {
-            Logger.getLogger(ReceivePointsBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("Getting queue size: " + count);
-        return count;
-    }
+	public void setPatientId(Long mid) {
+		this.patientId = mid;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 }

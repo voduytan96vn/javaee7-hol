@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2012 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -37,46 +37,54 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.javaee7.movieplex7.points;
 
-import javax.annotation.Resource;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.jms.JMSContext;
-import javax.jms.Queue;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+package org.javaee7.movieplex7.json;
 
-/**
- * @author Arun Gupta
- */
-@Named
-@RequestScoped
-public class SendPointsBean {
+import java.io.IOException;
+import java.io.OutputStream;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 
-    @Inject
-//    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
-    JMSContext context;
-    
-    @NotNull
-    @Pattern(regexp = "^\\d{2},\\d{2}", message = "Message format must be 2 digits, comma, 2 digits, e.g. 12,12")
-    private String message;
+import javax.json.Json;
+import javax.json.stream.JsonGenerator;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.ext.Provider;
 
-    public String getMessage() {
-        return message;
+import org.javaee7.movieplex7.entities.Patient;
+
+@Provider
+@Produces(MediaType.APPLICATION_JSON)
+public class PatientWriter implements MessageBodyWriter<Patient> {
+
+	@Override
+	public boolean isWriteable(Class<?> type, Type type1, Annotation[] antns, MediaType mt) {
+		return Patient.class.isAssignableFrom(type);
+	}
+
+	@Override
+	public long getSize(Patient t, Class<?> type, Type type1, Annotation[] antns, MediaType mt) {
+		// As of JAX-RS 2.0, the method has been deprecated and the
+		// value returned by the method is ignored by a JAX-RS runtime.
+		// All MessageBodyWriter implementations are advised to return -1 from
+		// the method.
+
+		return -1;
+	}
+
+	@Override
+    public void writeTo(Patient t, Class<?> type, Type type1, Annotation[] antns, MediaType mt, MultivaluedMap<String, Object> mm, OutputStream out) throws IOException, WebApplicationException {
+        JsonGenerator gen = Json.createGenerator(out);
+        gen.writeStartObject()
+                .write("id", t.getId())
+                .write("name", t.getName())
+                .write("address", t.getAddress())
+                .writeEnd();
+        gen.flush();
+
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Resource(lookup = "java:global/jms/pointsQueue")
-    Queue pointsQueue;
-
-    public void sendMessage() {
-        System.out.println("Sending message: " + message);
-
-        context.createProducer().send(pointsQueue, message);
-    }
 }

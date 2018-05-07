@@ -37,61 +37,86 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
+package org.javaee7.movieplex7.rest;
 
-var wsUri = 'ws://' + document.location.host 
-        + document.location.pathname.substr(0, document.location.pathname.indexOf("/faces"))
-        + '/websocket';
-console.log(wsUri);
-var websocket = new WebSocket(wsUri);
+import java.util.List;
 
-var username;
-websocket.onopen = function(evt) { onOpen(evt); };
-websocket.onmessage = function(evt) { onMessage(evt); };
-websocket.onerror = function(evt) { onError(evt); };
-websocket.onclose = function(evt) { onClose(evt); };
-var output = document.getElementById("output");
-var textField = document.getElementById("textField");
-var users = document.getElementById("users");
-var chatlog = document.getElementById("chatlog");
+import javax.ejb.Stateless;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
-function join() {
-    username = textField.value;
-    websocket.send(username + " joined");
-}
+import org.javaee7.movieplex7.entities.Patient;
 
-function send_message() {
-    websocket.send(username + ": " + textField.value);
-}
+@Named
+@Stateless
+@Path("patient")
+public class PatientFacadeREST extends AbstractFacade<Patient> {
+    @PersistenceContext
+    protected EntityManager em;
 
-function onOpen() {
-    writeToScreen("CONNECTED");
-}
-
-function onClose() {
-    writeToScreen("DISCONNECTED");
-}
-
-function onMessage(evt) {
-    writeToScreen("RECEIVED: " + evt.data);
-    if (evt.data.indexOf("joined") !== -1) {
-        users.innerHTML += evt.data.substring(0, evt.data.indexOf(" joined")) + "\n";
-    } else {
-        chatlog.innerHTML += evt.data + "\n";
+    public PatientFacadeREST() {
+        super(Patient.class);
     }
-}
 
-function onError(evt) {
-    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
-}
+    @POST
+    @Override
+    @Consumes({"application/xml", "application/json"})
+    public void create(Patient entity) {
+        super.create(entity);
+    }
 
-function disconnect() {
-    websocket.close();
-}
+    @PUT
+    @Path("{id}")
+    public void edit(@PathParam("id") Integer id) {
+        super.edit(id);
+    }
 
-function writeToScreen(message) {
-    var pre = document.createElement("p");
-    pre.style.wordWrap = "break-word";
-    pre.innerHTML = message;
-    output.appendChild(pre);
-}
+    @DELETE
+    @Path("{id}")
+    public void remove(@PathParam("id") Integer id) {
+        super.remove(super.find(id));
+    }
 
+    @GET
+    @Path("{id}")
+    @Produces({"application/xml", "application/json"})
+    public Patient find(@PathParam("id") Integer id) {
+        return super.find(id);
+    }
+
+    @GET
+    @Override
+    @Produces({"application/xml", "application/json"})
+    public List<Patient> getAll() {
+        return super.getAll();
+    }
+
+    @GET
+    @Path("{from}/{to}")
+    @Produces({"application/xml", "application/json"})
+    public List<Patient> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to});
+    }
+
+    @GET
+    @Path("count")
+    @Produces("text/plain")
+    public String countREST() {
+        return String.valueOf(super.count());
+    }
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+    
+}

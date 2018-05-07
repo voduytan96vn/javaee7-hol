@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8">
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" encoding="UTF-8"
+  contentType="text/html;charset=UTF-8">
   <html>
 
 <h:head>
@@ -48,27 +49,6 @@
       <li class="logout"><a href=""> Thoát <i class="fa fa-sign-out-alt small"></i>
       </a></li>
     </ul>
-
-    <div id="session-location">
-      <div id="spinner" style="position: absolute; display: none">
-        <img src="./../images/spinner.gif" />
-      </div>
-      <ul class="select">
-
-        <li class="selected">Inpatient Ward</li>
-
-        <li class="">Isolation Ward</li>
-
-        <li class="">Laboratory</li>
-
-        <li class="">Outpatient Clinic</li>
-
-        <li class="">Pharmacy</li>
-
-        <li class="">Registration Desk</li>
-
-      </ul>
-    </div>
   </header>
 
   <ul id="breadcrumbs">
@@ -79,93 +59,20 @@
   </ul>
 
   <div id="body-wrapper">
-    <div id="error-message" class="note-container">
-      <div class="note error" style="display: none">
-        <div class="text">
-          <i class="icon-remove medium"></i>
-
-        </div>
-        <div class="close-icon">
-          <i class="icon-remove"></i>
-        </div>
-      </div>
-    </div>
-
-    <div id="info-message" class="note-container">
-      <div class="note success" style="display: none">
-        <div class="text">
-          <i class="icon-ok medium"></i>
-
-        </div>
-        <div class="close-icon">
-          <i class="icon-remove"></i>
-        </div>
-      </div>
-    </div>
-
     <div id="content" class="container">
       <h2>Tìm kiếm hồ sơ bệnh nhân</h2>
 
-      <h:form method="get" id="patient-search-form" onsubmit="return false">
-        <h:inputText id="patient-search" placeholder="Tìm kiếm bằng ID hoặc tên bệnh nhân" autocomplete="off"
-          type="text" />
-        <i id="patient-search-clear-button" class="fa small icon-remove-sign"></i>
+      <h:form id="formMain" prependId="false">
+        <h:selectOneRadio value="#{patientBackingBean.patientId}" layout="pageDirection">
+          <c:forEach items="#{patientClientBean.patients}" var="m">
+            <f:selectItem itemValue="#{m.id}" itemLabel="#{m.name}" />
+          </c:forEach>
+        </h:selectOneRadio>
 
+        <h:commandButton value="Chi tiết" action="detailpatient" />
+        <h:commandButton value="Xóa" action="patients" actionListener="#{patientClientBean.deletePatient()}" />
+        <h:commandButton value="Bệnh nhân mới" action="addpatient" />
       </h:form>
-
-      <div id="patient-search-results">
-        <div id="patient-search-results-table_wrapper" class="dataTables_wrapper" role="grid">
-          <table id="patient-search-results-table" class="dataTable"
-            aria-describedby="patient-search-results-table_info">
-            <thead>
-              <tr role="row">
-                <th class="ui-state-default" role="columnheader" rowspan="1" colspan="1" style="width: 0px;"><div
-                    class="DataTables_sort_wrapper">
-                    ID<span class="DataTables_sort_icon"></span>
-                  </div></th>
-                <th class="ui-state-default" role="columnheader" rowspan="1" colspan="1" style="width: 0px;"><div
-                    class="DataTables_sort_wrapper">
-                    Tên<span class="DataTables_sort_icon"></span>
-                  </div></th>
-                <th class="ui-state-default" role="columnheader" rowspan="1" colspan="1" style="width: 0px;"><div
-                    class="DataTables_sort_wrapper">
-                    Giới tính<span class="DataTables_sort_icon"></span>
-                  </div></th>
-                <th class="ui-state-default" role="columnheader" rowspan="1" colspan="1" style="width: 0px;"><div
-                    class="DataTables_sort_wrapper">
-                    Tuổi<span class="DataTables_sort_icon"></span>
-                  </div></th>
-                <th class="ui-state-default" role="columnheader" rowspan="1" colspan="1" style="width: 0px;"><div
-                    class="DataTables_sort_wrapper">
-                    Ngày sinh<span class="DataTables_sort_icon"></span>
-                  </div></th>
-              </tr>
-            </thead>
-            <tbody role="alert" aria-live="polite" aria-relevant="all">
-              <tr class="odd">
-                <td colspan="5" class="dataTables_empty" valign="top">Không có hồ sơ được tìm thấy</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg">
-            <div class="dataTables_info" id="patient-search-results-table_info"></div>
-            <div
-              class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers"
-              id="patient-search-results-table_paginate">
-              <a tabindex="0"
-                class="first ui-corner-tl ui-corner-bl fg-button ui-button ui-state-default ui-state-disabled"
-                id="patient-search-results-table_first">Trang đầu</a><a tabindex="0"
-                class="previous fg-button ui-button ui-state-default ui-state-disabled"
-                id="patient-search-results-table_previous">Trang trước</a><span></span><a tabindex="0"
-                class="next fg-button ui-button ui-state-default ui-state-disabled"
-                id="patient-search-results-table_next">Trang kế</a><a tabindex="0"
-                class="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default ui-state-disabled"
-                id="patient-search-results-table_last">Trang cuối</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
   </div>

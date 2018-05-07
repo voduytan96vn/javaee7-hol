@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough" encoding="UTF-8" contentType="text/html;charset=UTF-8">
+  <html>
+
+<h:body>
+
+  <ui:composition template="./../WEB-INF/template.html">
+
+    <ui:define name="content">
+      <h1>Movie Details</h1>
+      <h:form>
+        <h:table cellpadding="5" cellspacing="5">
+          <tr>
+            <th align="left">Patient Id:</th>
+            <td>#{patientClientBean.patient.id}</td>
+          </tr>
+          <tr>
+            <th align="left">Patient Name:</th>
+            <td>#{patientClientBean.patient.name}</td>
+          </tr>
+          <tr>
+            <th align="left">Patient Address:</th>
+            <td>#{patientClientBean.patient.address}</td>
+          </tr>
+
+        </h:table>
+        <h:commandButton value="Back" action="patient" />
+      </h:form>
+    </ui:define>
+
+  </ui:composition>
+
+</h:body>
+  </html>
+</f:view>
