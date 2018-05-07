@@ -6,12 +6,88 @@
   <html>
 
 <h:body>
-
   <ui:composition template="./WEB-INF/template.html">
 
-    <ui:define name="content">
-                Showing #{movieFacadeREST.countREST()} movies in #{theaterFacadeREST.countREST()} theaters!
-            </ui:define>
+    <ul id="breadcrumbs"></ul>
+
+    <div id="body-wrapper">
+      <div id="error-message" class="note-container">
+        <div class="note error" style="display: none">
+          <div class="text">
+            <i class="icon-remove medium"></i>
+
+          </div>
+          <div class="close-icon">
+            <i class="icon-remove"></i>
+          </div>
+        </div>
+      </div>
+
+      <div id="info-message" class="note-container">
+        <div class="note success" style="display: none">
+          <div class="text">
+            <i class="icon-ok medium"></i>
+
+          </div>
+          <div class="close-icon">
+            <i class="icon-remove"></i>
+          </div>
+        </div>
+      </div>
+      <div id="content" class="container">
+        <div id="home-container">
+          <h4>Logged in as Super User () at Inpatient Ward.</h4>
+          <div id="apps">
+            <a id="coreapps-activeVisitsHomepageLink-coreapps-activeVisitsHomepageLink-extension" href=""
+              class="button app big"> <i class="icon-search"></i> Tìm kiếm hồ sơ bệnh nhân
+            </a> <a
+              id="org-openmrs-module-coreapps-activeVisitsHomepageLink-org-openmrs-module-coreapps-activeVisitsHomepageLink-extension"
+              href="" class="button app big"> <i class="icon-calendar"></i> Active Visits
+            </a> <a
+              id="referenceapplication-registrationapp-registerPatient-homepageLink-referenceapplication-registrationapp-registerPatient-homepageLink-extension"
+              href="" class="button app big"> <i class="icon-user"></i> Đăng ký bệnh nhân
+            </a> <a id="referenceapplication-vitals-referenceapplication-vitals-extension" href="" class="button app big">
+              <i class="icon-vitals"></i> Capture Vitals
+            </a> <a id="appointmentschedulingui-homeAppLink-appointmentschedulingui-homeAppLink-extension" href=""
+              class="button app big"> <i class="icon-calendar"></i> Lên lịch hẹn
+            </a> <a id="reportingui-reports-homepagelink-reportingui-reports-homepagelink-extension" href=""
+              class="button app big"> <i class="icon-list-alt"></i> Báo cáo
+            </a> <a id="coreapps-datamanagement-homepageLink-coreapps-datamanagement-homepageLink-extension" href=""
+              class="button app big"> <i class="icon-hdd"></i> Quản lý dữ liệu
+            </a> <a
+              id="org-openmrs-module-adminui-configuremetadata-homepageLink-org-openmrs-module-adminui-configuremetadata-homepageLink-extension"
+              href="" class="button app big"> <i class="icon-tasks"></i> Cấu hình dữ liệu
+            </a> <a id="coreapps-systemadministration-homepageLink-coreapps-systemadministration-homepageLink-extension"
+              href="" class="button app big"> <i class="icon-cogs"></i> Quản trị hệ thống
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div id="left">
+        <ui:insert name="left">
+          <h:form>
+            <h:commandLink action="booking">Book a movie</h:commandLink>
+            <p />
+            <h:outputLink value="#{request.contextPath}/faces/chat/chatroom.html">Chat Room</h:outputLink>
+            <p />
+            <h:outputLink value="#{request.contextPath}/faces/client/movies.html">Movies</h:outputLink>
+            <p />
+            <h:outputLink value="#{request.contextPath}/faces/batch/sales.html">Sales</h:outputLink>
+            <p />
+            <h:outputLink value="#{request.contextPath}/faces/points/points.html">Points</h:outputLink>
+            <p />
+            <h:outputLink value="#{request.contextPath}/faces/views/emr/index.html">EMR</h:outputLink>
+
+          </h:form>
+        </ui:insert>
+      </div>
+      <div id="content" class="left_content">
+        <ui:insert name="content">Content</ui:insert>
+      </div>
+    </div>
+Showing #{movieFacadeREST.countREST()} movies in #{theaterFacadeREST.countREST()} theaters!
 
   </ui:composition>
 
