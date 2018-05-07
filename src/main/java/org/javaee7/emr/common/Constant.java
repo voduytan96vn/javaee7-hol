@@ -18,7 +18,7 @@ public class Constant {
 	public static final String UNDER_LINE = "_";
 	public static final String SEPARATOR_URL = "/";
 	public static final String BLANK = " ";
-
+	public static final String BLANK_2BYTE = "  ";
 	public static final String BLANK_16BYTE = "                ";
 	public static final String ALL = "*";
 	public static final String PERCENT = "%";
