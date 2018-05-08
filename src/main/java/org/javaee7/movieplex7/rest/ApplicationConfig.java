@@ -68,5 +68,6 @@ public class ApplicationConfig extends Application {
 		resources.add(org.javaee7.movieplex7.rest.ShowTimingFacadeREST.class);
 		resources.add(org.javaee7.movieplex7.rest.TheaterFacadeREST.class);
 		resources.add(org.javaee7.movieplex7.rest.TimeslotFacadeREST.class);
+		resources.add(org.javaee7.movieplex7.rest.PatientFacadeREST.class);
 	}
 }
