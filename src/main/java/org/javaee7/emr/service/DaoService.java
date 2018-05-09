@@ -21,16 +21,10 @@ import javax.persistence.StoredProcedureQuery;
 
 import org.eclipse.persistence.config.QueryHints;
 import org.javaee7.emr.client.ParamQuery;
-import org.javaee7.emr.entities.Node;
 
 public class DaoService {
-	@PersistenceContext(unitName = "sky")
+	@PersistenceContext(unitName = "root")
 	EntityManager em;
-
-	@PersistenceContext(unitName = "skynode")
-	EntityManager emNode;
-
-	private static Integer nodeId;
 
 	protected Locale locale;
 	protected TimeZone zone;
@@ -47,25 +41,7 @@ public class DaoService {
 	}
 
 	public Integer getNodeId() {
-		if (nodeId == null) {
-			try {
-				Query query = emNode.createNamedQuery("Node.skyNode");
-				if (query != null) {
-					Node node = (Node) query.getSingleResult();
-					if (node != null) {
-						nodeId = node.getId();
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				nodeId = null;
-			}
-
-			if (nodeId == null) {
-				throw new RuntimeException("System error. Please contact SKY SUPPORT CENTER");
-			}
-		}
-		return nodeId;
+		return 1001;
 	}
 
 	/**
