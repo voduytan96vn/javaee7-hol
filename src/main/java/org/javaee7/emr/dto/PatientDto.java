@@ -1,29 +1,28 @@
 package org.javaee7.emr.dto;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.javaee7.movieplex7.entities.Patient;
 
 public class PatientDto extends Dto {
+	private static final long serialVersionUID = -3120195622004936848L;
+
 	public PatientDto() {
 		super();
 	}
 
-	private String account;
+	private String address;
 	private String name;
-	private Patient users;
-	private List<Patient> userList;
+	private Patient patient;
+	private List<Patient> patientList;
 
-	private Date dateExpire;
-
-	public String getAccount() {
-		return account;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getName() {
@@ -34,30 +33,23 @@ public class PatientDto extends Dto {
 		this.name = name;
 	}
 
-	public List<Patient> getUserList() {
-		if (userList == null) {
-			userList = new ArrayList<Patient>();
+	public List<Patient> getPatientList() {
+		if (patientList == null) {
+			patientList = new ArrayList<Patient>();
 		}
-		return userList;
+		return patientList;
 	}
 
-	public void setUserList(List<Patient> userList) {
-		this.userList = userList;
+	public void setPatientList(List<Patient> patientList) {
+		this.patientList = patientList;
 	}
 
-	public Date getDateExpire() {
-		return dateExpire;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setDateExpire(Date dateExpire) {
-		this.dateExpire = dateExpire;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
-	public Patient getUsers() {
-		return users;
-	}
-
-	public void setUsers(Patient users) {
-		this.users = users;
-	}
 }

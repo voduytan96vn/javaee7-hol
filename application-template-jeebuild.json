@@ -44,7 +44,7 @@
         "creationTimestamp": null
       },
       "spec": {
-        "host": "www.abc.apps.voduytan.local",
+        "host": "master-1.voduytan.local",
         "to": {
           "kind": "Service",
           "name": "frontend"

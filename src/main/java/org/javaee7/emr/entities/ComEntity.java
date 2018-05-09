@@ -21,6 +21,7 @@ import net.sf.json.JSONObject;
 
 @MappedSuperclass
 public class ComEntity implements Serializable {
+	private static final long serialVersionUID = -8144606327731807617L;
 	public static Integer CANCELED = -1;
 	public static Integer OFF = 0;
 	public static Integer ON = 1;

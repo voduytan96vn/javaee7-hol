@@ -15,6 +15,12 @@ import java.util.TimeZone;
 import org.javaee7.emr.common.Constant;
 
 public class LoginInfo implements Serializable {
+	private static final long serialVersionUID = -1803634850216573073L;
+
+	private Long partnerId;
+
+	private Long companyId;
+
 	private Locale locale = Locale.forLanguageTag("vi-VN");
 	private TimeZone zone = TimeZone.getTimeZone("GMT+07:00");
 
@@ -30,6 +36,22 @@ public class LoginInfo implements Serializable {
 	private Map<String, Boolean> approveLevel1 = new HashMap<String, Boolean>();
 	private Map<String, Boolean> approveLevel2 = new HashMap<String, Boolean>();
 	private Map<String, Boolean> approveLevel3 = new HashMap<String, Boolean>();
+
+	public Long getPartnerId() {
+		return partnerId;
+	}
+
+	public void setPartnerId(Long partnerId) {
+		this.partnerId = partnerId;
+	}
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
 
 	public Locale getLocale() {
 		return locale;
