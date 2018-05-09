@@ -23,7 +23,7 @@ import org.eclipse.persistence.config.QueryHints;
 import org.javaee7.emr.client.ParamQuery;
 
 public class DaoService {
-	@PersistenceContext(unitName = "sky")
+	@PersistenceContext(unitName = "movieplex7PU")
 	EntityManager em;
 
 	protected Locale locale;
