@@ -12,7 +12,7 @@
     <ui:define name="content">
       <h1>Thêm mới bệnh nhân</h1>
       <h:form>
-        <h:table cellpadding="5" cellspacing="5">
+        <h:dataTable cellpadding="5" cellspacing="5">
           <tr>
             <th align="left">patient Id:</th>
             <td><h:inputText value="#{patientBackingBean.patientId}" /></td>
@@ -26,7 +26,7 @@
             <td><h:inputText value="#{patientBackingBean.address}" /></td>
           </tr>
 
-        </h:table>
+        </h:dataTable>
         <h:commandButton value="Add" action="patient" actionListener="#{patientClientBean.addPatient()}" />
       </h:form>
     </ui:define>
