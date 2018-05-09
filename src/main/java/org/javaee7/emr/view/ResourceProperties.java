@@ -11,8 +11,6 @@ import java.util.Map;
 import java.util.Properties;
 
 public class ResourceProperties implements Serializable {
-	private static final long serialVersionUID = 7073379628989733167L;
-
 	/**
 	 * The configuration parameter used to initialize this MessageResources.
 	 */

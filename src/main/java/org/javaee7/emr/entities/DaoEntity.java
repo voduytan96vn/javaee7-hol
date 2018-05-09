@@ -7,17 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.Version;
 
 import net.sf.json.JSONObject;
 
 public class DaoEntity extends ComEntity implements Serializable {
-	private static final long serialVersionUID = 8633315842265816520L;
-
-	@Id
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
 
 	@Column(name = "created_by")
 	private Long createdBy;
@@ -43,14 +37,6 @@ public class DaoEntity extends ComEntity implements Serializable {
 
 	public DaoEntity() {
 		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public boolean isDeleted() {

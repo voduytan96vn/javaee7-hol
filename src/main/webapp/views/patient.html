@@ -30,8 +30,7 @@
 <h:body>
   <header>
     <div class="logo">
-      <a href="https://master-1.voduytan.local/app-1.0.0/faces/index.html"> <img src="./../images/logo.png" />
-      </a>
+      <a href="https://master-1.voduytan.local/app-1.0.0/faces/index.html"> <img src="./../images/logo.png" /></a>
     </div>
 
     <ul class="user-options">
@@ -73,48 +72,6 @@
         <h:commandButton value="Chi tiết" action="detailpatient" />
         <h:commandButton value="Xóa" action="patients" actionListener="#{patientClientBean.deletePatient()}" />
         <h:commandButton value="Bệnh nhân mới" action="addpatient" />
-
-        <h:commandButton id="cbSearchAdvance" action="#{patientBean.doAction(searchAdvance)}" value="Tìm"
-          styleClass="btn btn-primary" style="width: 100px; margin-left: 10px;">
-          <f:ajax execute="@form" render="@form"></f:ajax>
-        </h:commandButton>
-
-        <h:panelGroup id="pgItems" layout="block" styleClass="table">
-          <h:dataTable id="tableLabelItems" styleClass="table w100" headerClass="table-header"
-            value="#{patientdto.patientList}" var="row" cellspacing="0" cellpadding="0">
-            <h:column>
-              <f:facet name="header">
-                <h:selectBooleanCheckbox styleClass="select-all-row"
-                  onchange="selectAllRow(this, $('#tableLabelItems .select-row'))" value="#{viewValue.allLabels}"></h:selectBooleanCheckbox>
-                <h:outputText value="STT" />
-              </f:facet>
-              <div class="group-select-index">
-                <div class="index">
-                  <h:outputText value="#{row.index}" />
-                </div>
-              </div>
-            </h:column>
-
-            <h:column>
-              <f:facet name="header">
-                <div>
-                  <h:outputText value="Tên người dùng" />
-                </div>
-              </f:facet>
-              <h:outputText styleClass="text-left" value="#{row.name}"></h:outputText>
-            </h:column>
-
-            <h:column>
-              <f:facet name="header">
-                <div>
-                  <h:outputText value="Địa chỉ" />
-                </div>
-              </f:facet>
-              <h:outputText styleClass="text-left" value="#{row.address}"></h:outputText>
-            </h:column>
-
-          </h:dataTable>
-        </h:panelGroup>
       </h:form>
     </div>
 

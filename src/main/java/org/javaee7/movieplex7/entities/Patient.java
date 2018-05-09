@@ -1,17 +1,18 @@
 package org.javaee7.movieplex7.entities;
 
 import java.io.Serializable;
-
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.javaee7.emr.entities.ComEntity;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Arun Gupta
@@ -20,7 +21,7 @@ import org.javaee7.emr.entities.ComEntity;
 @Table(name = "PATIENT")
 @XmlRootElement
 @NamedQueries({ @NamedQuery(name = "Patient.findAll", query = "SELECT m FROM Patient m"), })
-public class Patient extends ComEntity implements Serializable {
+public class Patient implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@NotNull

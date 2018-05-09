@@ -2,14 +2,6 @@
 <faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-	<render-kit>
-		<renderer>
-			<component-family>javax.faces.Input</component-family>
-			<renderer-type>javax.faces.File</renderer-type>
-			<renderer-class>org.javaee7.emr.view.MultipleFileRenderer</renderer-class>
-		</renderer>
-	</render-kit>
-
 	<managed-bean>
 		<managed-bean-name>lib</managed-bean-name>
 		<managed-bean-class>org.javaee7.emr.view.Lib</managed-bean-class>
@@ -36,11 +28,10 @@
 		<managed-bean-class>java.util.HashMap</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
-
 	<managed-bean>
-		<managed-bean-name>patientdto</managed-bean-name>
-		<managed-bean-class>org.javaee7.emr.dto.PatientDto</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
+		<managed-bean-name>common</managed-bean-name>
+		<managed-bean-class>java.util.HashMap</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 
 </faces-config>
